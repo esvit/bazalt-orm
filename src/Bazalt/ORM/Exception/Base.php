@@ -22,7 +22,7 @@ namespace Bazalt\ORM\Exception;
  * @license    GPLv3
  * @version    $Revision: 133 $
  */
-abstract class Base extends \Framework\Core\Exception\Base
+abstract class Base extends \Exception
 {
     public static function getException(\PDOException $e, $query = null, $params = array())
     {
