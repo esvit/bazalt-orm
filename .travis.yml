@@ -12,6 +12,7 @@ before_install:
   - mysql -u$DB_USERNAME tests < sakila.sql
 
 before_script:
+  - composer self-update
   - composer install
 
 script:

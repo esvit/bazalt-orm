@@ -1,6 +1,6 @@
 <?php
 
-require_once '../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 /*
     CREATE USER 'test'@'localhost' IDENTIFIED BY 'test';
