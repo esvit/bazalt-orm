@@ -12,8 +12,7 @@
 
 namespace Bazalt\ORM\Plugin;
 
-use Framework\Core\Event,
-    Bazalt\ORM as ORM;
+use Bazalt\ORM as ORM;
 
 /**
  * Serializable 

@@ -11,6 +11,13 @@
 
 namespace Bazalt;
 
+define('STAGE', 'dev');
+define('DEVELOPMENT_STAGE', 'dev');
+
+if (!extension_loaded('pdo_mysql')) {
+    throw new Exception('PHP Extension "pdo_mysql" must be loaded');
+}
+
 /**
  * ORM
  *
@@ -35,6 +42,13 @@ class ORM
     public static function cache()
     {
         return new ORM\CacheAdapter();
+    }
+
+    public static function logger($class)
+    {
+        $logger = new \Analog\Logger();
+        $logger->handler(\Analog\Handler\Stderr::init());
+        return $logger;
     }
 
     /**

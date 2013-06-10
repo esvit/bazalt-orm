@@ -10,9 +10,9 @@
  * @version    $Revision: 133 $
  */
 
-use Framework\Core\Event;
-use Bazalt\ORM;
-use Bazalt\ORM\Record;
+namespace Bazalt\ORM\Relation;
+
+use Bazalt\ORM as ORM;
 
 /**
  * ORM
@@ -24,22 +24,8 @@ use Bazalt\ORM\Record;
  * @license    GPLv3
  * @version    $Revision: 133 $
  */ 
-class ORM_Relation_One2Many extends ORM_Relation_Abstract implements ORM_Interface_RelationMany
+class One2Many extends \ORM_Relation_Abstract implements \ORM_Interface_RelationMany
 {
-    /**
-     * Евент OnAdd
-     *
-     * @var Event
-     */
-    public $eventOnAdd = Event::EMPTY_EVENT;
-    
-    /**
-     * Евент OnRemove
-     *
-     * @var Event
-     */
-    public $eventOnRemove = Event::EMPTY_EVENT;
-    
     /**
      * Constructor
      *

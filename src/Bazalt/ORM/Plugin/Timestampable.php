@@ -12,7 +12,6 @@
 
 namespace Bazalt\ORM\Plugin;
 
-use Framework\Core\Event;
 use Bazalt\ORM\Record;
 use Bazalt\ORM as ORM;
 

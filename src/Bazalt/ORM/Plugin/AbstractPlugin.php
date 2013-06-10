@@ -12,9 +12,6 @@
 
 namespace Bazalt\ORM\Plugin;
 
-use Framework\Core\Event,
-    Framework\Core\Object,
-    Framework\Core\Interfaces\Singleton;
 use Bazalt\ORM\Record;
 
 /**

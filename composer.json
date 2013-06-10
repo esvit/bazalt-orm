@@ -8,9 +8,13 @@
         }
     ],
     "autoload": {
-        "psr-0": {"Bazalt\\ORM": "src/ORM"}
+        "psr-0": {
+            "Bazalt\\ORM": "src/"
+        }
     },
     "require": {
-        "php": ">=5.4.0"
+        "php": ">=5.4.0",
+        "analog/analog": "dev-master",
+        "symfony/event-dispatcher": "*"
     }
 }

@@ -10,9 +10,6 @@
  * @version    $Revision: 133 $
  */
 
-use Framework\Core\Event,
-    Framework\Core\Object,
-    Framework\Core\Interfaces\Eventable;
 use Bazalt\ORM\Record;
 
 /**
@@ -26,7 +23,7 @@ use Bazalt\ORM\Record;
  * @license    GPLv3
  * @version    $Revision: 133 $
  */ 
-abstract class ORM_Relation_Abstract extends Object implements Eventable
+abstract class ORM_Relation_Abstract
 {
     /**
      * Назва моделі до якої іде звязок

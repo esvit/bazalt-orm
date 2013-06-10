@@ -12,8 +12,6 @@
 
 namespace Bazalt\ORM\Plugin;
 
-use Framework\Core\Event;
-
 /**
  * ORM_Plugin_RelationsCounter
  * @link http://wiki.bazalt.org.ua/ORMRelationsCounter
@@ -37,8 +35,8 @@ class RelationsCounter extends AbstractPlugin
      */
     public function init(ORM_Record $model, $options)
     {
-        Event::register($model->$options['relation'], 'OnAdd', array($this,'onAdd'));
-        Event::register($model->$options['relation'], 'OnRemove', array($this,'onRemove'));
+        //Event::register($model->$options['relation'], 'OnAdd', array($this,'onAdd'));
+        //Event::register($model->$options['relation'], 'OnRemove', array($this,'onRemove'));
     }
     
     /**

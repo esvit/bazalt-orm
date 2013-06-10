@@ -11,8 +11,6 @@
 
 namespace Bazalt\ORM;
 
-use Framework\Core\Event;
-
 /**
  * BaseRecord
  *
@@ -201,20 +199,6 @@ abstract class BaseRecord implements \IteratorAggregate
      * @var array
      */
     protected static $pluginsEvents = array();
-
-    /**
-     * Евент OnSet
-     *
-     * @var Event
-     */
-    public $eventOnSet = Event::EMPTY_EVENT;
-
-    /**
-     * Евент OnGet
-     *
-     * @var Event
-     */    
-    public $eventOnGet = Event::EMPTY_EVENT;    
     
     
     /**

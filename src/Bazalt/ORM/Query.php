@@ -12,9 +12,7 @@
 
 namespace Bazalt\ORM;
 
-use Bazalt\ORM,
-    Framework\Core\Logger,
-    Framework\Core\Event;
+use Bazalt\ORM;
 
 /**
  * ORM_Query
@@ -28,13 +26,6 @@ use Bazalt\ORM,
  */
 class Query
 {
-    /**
-     * Евент OnFetchAll
-     *
-     * @var Event
-     */    
-    public $eventOnFetchAll = Event::EMPTY_EVENT;
-
     /**
      * Запит
      */
@@ -253,7 +244,7 @@ class Query
             $res = $this->fillClass($cached, $baseClass);
             return $res;
         }
-        $profile = Logger::start(__CLASS__, __FUNCTION__);
+        //$profile = Logger::start(__CLASS__, __FUNCTION__);
         
         $res = $this->execute();
         $itm = $res->fetch(\PDO::FETCH_ASSOC);
@@ -266,11 +257,11 @@ class Query
         if ($itm === false) {
             $itm = null;
         }
-        $q = Logger::start(__CLASS__, 'setCache');
+        //$q = Logger::start(__CLASS__, 'setCache');
         ORM::cache()->set($cacheKey, $itm, ORM::cache()->defaultLifeTime(), $this->getCacheTags());
-        Logger::stop($q);
+        //Logger::stop($q);
 
-        Logger::stop($profile);
+        //Logger::stop($profile);
         return $result;
     }
 
@@ -300,7 +291,7 @@ class Query
             }
             return $res;
         }
-        $profile = Logger::start(__CLASS__, __FUNCTION__);
+        //$profile = Logger::start(__CLASS__, __FUNCTION__);
         
         $result = false;
 
@@ -328,7 +319,7 @@ class Query
             ORM::cache()->set($cacheKey, $cache, ORM::cache()->defaultLifeTime(), $this->getCacheTags());
         }
 
-        Logger::stop($profile);
+        //Logger::stop($profile);
         return $result;
     }
 

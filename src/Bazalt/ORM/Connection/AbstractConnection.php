@@ -73,7 +73,7 @@ abstract class AbstractConnection
     public function __construct(ORM\Adapter\AbstractAdapter $adapter)
     {
         $this->connectionAdapter = $adapter;
-        $this->logger = new Core\Logger(get_class($this));
+        $this->logger = ORM::logger(get_class($this));
     }
 
     /**

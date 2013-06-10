@@ -28,21 +28,6 @@ use Bazalt\ORM;
 class ORM_Relation_Many2Many extends ORM_Relation_Abstract implements ORM_Interface_RelationMany
 {
     /**
-     * Евент OnAdd
-     *
-     * @var Event
-     */
-    public $eventOnAdd = Event::EMPTY_EVENT;
-    
-    /**
-     * Евент OnRemove
-     *
-     * @var Event
-     */
-    public $eventOnRemove = Event::EMPTY_EVENT;
-
-
-    /**
      * Викликається при зверненні до об'єкту зв'язку і повертає масив
      * обєктів зв'язаної моделі, які відносяться до поточного обєкта
      *
