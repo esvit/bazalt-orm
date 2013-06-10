@@ -5,7 +5,7 @@ use Framework\System\ORM\Record;
 /**
  * @codeCoverageIgnore
  */
-abstract class ORMTest_Model_Base_Record extends Record
+abstract class tests\Model\Base_Record extends Record
 {
     public function getSQLConnectionName()
     {

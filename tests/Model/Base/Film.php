@@ -2,11 +2,11 @@
 /**
  * @codeCoverageIgnore
  */
-abstract class ORMTest_Model_Base_Film extends ORMTest_Model_Base_Record
+abstract class tests\Model\Base_Film extends tests\Model\Base_Record
 {
     const TABLE_NAME = 'film';
 
-    const MODEL_NAME = 'ORMTest_Model_Film';
+    const MODEL_NAME = 'tests\Model\Film';
 
     public function __construct()
     {
@@ -32,10 +32,10 @@ abstract class ORMTest_Model_Base_Film extends ORMTest_Model_Base_Record
 
     public function initRelations()
     {
-        $this->hasRelation('FilmActor', new ORM_Relation_One2Many('ORMTest_Model_FilmActor', 'film_id', 'film_id'));
-        $this->hasRelation('FilmCategory', new ORM_Relation_One2Many('ORMTest_Model_FilmCategory', 'film_id', 'film_id'));
-        $this->hasRelation('Inventory', new ORM_Relation_One2Many('ORMTest_Model_Inventory', 'film_id', 'film_id'));
-        $this->hasRelation('Language', new ORM_Relation_One2One('ORMTest_Model_Language', 'original_language_id',  'language_id'));
+        $this->hasRelation('FilmActor', new ORM_Relation_One2Many('tests\Model\FilmActor', 'film_id', 'film_id'));
+        $this->hasRelation('FilmCategory', new ORM_Relation_One2Many('tests\Model\FilmCategory', 'film_id', 'film_id'));
+        $this->hasRelation('Inventory', new ORM_Relation_One2Many('tests\Model\Inventory', 'film_id', 'film_id'));
+        $this->hasRelation('Language', new ORM_Relation_One2One('tests\Model\Language', 'original_language_id',  'language_id'));
     }
 
     public static function getById($id)

@@ -8,19 +8,19 @@ class ORMTest_ORM extends Tests\BaseCase
 {
     public function testSelectt()
     {
-        $sql = ORM::select('ORMTest_Model_Actor', null)->toSQL();
+        $sql = ORM::select('tests\Model\Actor', null)->toSQL();
         $this->assertEquals('SELECT * FROM actor AS f ', $sql);
         
-        $sql = ORM::select('ORMTest_Model_Actor a', 'a.last_name')->toSQL();
+        $sql = ORM::select('tests\Model\Actor a', 'a.last_name')->toSQL();
         $this->assertEquals('SELECT a.last_name FROM actor AS a ', $sql);
     }
 
     public function testInsert()
     {
-        $testObj = new ORMTest_Model_Actor();
+        $testObj = new tests\Model\Actor();
         $testObj->last_name = '123456';
         
-        $sql = ORM::insert('ORMTest_Model_Actor', $testObj)->toSQL();
+        $sql = ORM::insert('tests\Model\Actor', $testObj)->toSQL();
         $this->assertEquals('INSERT INTO actor (`last_name`) VALUES ("123456")', $sql);
     }
     
@@ -35,10 +35,10 @@ class ORMTest_ORM extends Tests\BaseCase
     public function testUnion()
     {
         $query1 = new ORM_Query_Select();
-        $query1->from('ORMTest_Model_Actor');
+        $query1->from('tests\Model\Actor');
         
         $query2 = new ORM_Query_Select();
-        $query2->from('ORMTest_Model_Address');
+        $query2->from('tests\Model\Address');
         
         $union = ORM::union($query1, $query2);
         $sql = $union->toSQL();
@@ -52,22 +52,22 @@ class ORMTest_ORM extends Tests\BaseCase
     /*public function testGetModelClasses()
     {
         $arr = array (
-            'ORMTest_Model_Actor',
-            'ORMTest_Model_Address',
-            'ORMTest_Model_Category',
-            'ORMTest_Model_City',
-            'ORMTest_Model_Country',
-            'ORMTest_Model_Customer',
-            'ORMTest_Model_Film',
-            'ORMTest_Model_FilmActor',
-            'ORMTest_Model_FilmCategory',
-            'ORMTest_Model_FilmText',
-            'ORMTest_Model_Inventory',
-            'ORMTest_Model_Language',
-            'ORMTest_Model_Payment',
-            'ORMTest_Model_Rental',
-            'ORMTest_Model_Staff',
-            'ORMTest_Model_Store'
+            'tests\Model\Actor',
+            'tests\Model\Address',
+            'tests\Model\Category',
+            'tests\Model\City',
+            'tests\Model\Country',
+            'tests\Model\Customer',
+            'tests\Model\Film',
+            'tests\Model\FilmActor',
+            'tests\Model\FilmCategory',
+            'tests\Model\FilmText',
+            'tests\Model\Inventory',
+            'tests\Model\Language',
+            'tests\Model\Payment',
+            'tests\Model\Rental',
+            'tests\Model\Staff',
+            'tests\Model\Store'
         );
     
         $this->assertEquals($arr, ORM::getModelClasses());

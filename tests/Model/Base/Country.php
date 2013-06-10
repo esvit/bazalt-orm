@@ -2,11 +2,11 @@
 /**
  * @codeCoverageIgnore
  */
-abstract class ORMTest_Model_Base_Country extends ORMTest_Model_Base_Record
+abstract class tests\Model\Base_Country extends tests\Model\Base_Record
 {
     const TABLE_NAME = 'country';
 
-    const MODEL_NAME = 'ORMTest_Model_Country';
+    const MODEL_NAME = 'tests\Model\Country';
 
     public function __construct()
     {
@@ -22,7 +22,7 @@ abstract class ORMTest_Model_Base_Country extends ORMTest_Model_Base_Record
 
     public function initRelations()
     {
-        $this->hasRelation('City', new ORM_Relation_One2Many('ORMTest_Model_City', 'country_id', 'country_id'));
+        $this->hasRelation('City', new ORM_Relation_One2Many('tests\Model\City', 'country_id', 'country_id'));
     }
 
     public static function getById($id)

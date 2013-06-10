@@ -2,11 +2,11 @@
 /**
  * @codeCoverageIgnore
  */
-abstract class ORMTest_Model_Base_Address extends ORMTest_Model_Base_Record
+abstract class tests\Model\Base_Address extends tests\Model\Base_Record
 {
     const TABLE_NAME = 'address';
 
-    const MODEL_NAME = 'ORMTest_Model_Address';
+    const MODEL_NAME = 'tests\Model\Address';
 
     public function __construct()
     {
@@ -27,10 +27,10 @@ abstract class ORMTest_Model_Base_Address extends ORMTest_Model_Base_Record
 
     public function initRelations()
     {
-        $this->hasRelation('Customer', new ORM_Relation_One2Many('ORMTest_Model_Customer', 'address_id', 'address_id'));
-        $this->hasRelation('Staff', new ORM_Relation_One2Many('ORMTest_Model_Staff', 'address_id', 'address_id'));
-        $this->hasRelation('Store', new ORM_Relation_One2Many('ORMTest_Model_Store', 'address_id', 'address_id'));
-        $this->hasRelation('City', new ORM_Relation_One2One('ORMTest_Model_City', 'city_id',  'city_id'));
+        $this->hasRelation('Customer', new ORM_Relation_One2Many('tests\Model\Customer', 'address_id', 'address_id'));
+        $this->hasRelation('Staff', new ORM_Relation_One2Many('tests\Model\Staff', 'address_id', 'address_id'));
+        $this->hasRelation('Store', new ORM_Relation_One2Many('tests\Model\Store', 'address_id', 'address_id'));
+        $this->hasRelation('City', new ORM_Relation_One2One('tests\Model\City', 'city_id',  'city_id'));
     }
 
     public static function getById($id)

@@ -2,11 +2,11 @@
 /**
  * @codeCoverageIgnore
  */
-abstract class ORMTest_Model_Base_Store extends ORMTest_Model_Base_Record
+abstract class tests\Model\Base_Store extends tests\Model\Base_Record
 {
     const TABLE_NAME = 'store';
 
-    const MODEL_NAME = 'ORMTest_Model_Store';
+    const MODEL_NAME = 'tests\Model\Store';
 
     public function __construct()
     {
@@ -23,10 +23,10 @@ abstract class ORMTest_Model_Base_Store extends ORMTest_Model_Base_Record
 
     public function initRelations()
     {
-        $this->hasRelation('Address', new ORM_Relation_One2One('ORMTest_Model_Address', 'address_id',  'address_id'));
-        $this->hasRelation('Staff', new ORM_Relation_One2Many('ORMTest_Model_Staff', 'store_id', 'store_id'));
-        $this->hasRelation('Customer', new ORM_Relation_One2Many('ORMTest_Model_Customer', 'store_id', 'store_id'));
-        $this->hasRelation('Inventory', new ORM_Relation_One2Many('ORMTest_Model_Inventory', 'store_id', 'store_id'));
+        $this->hasRelation('Address', new ORM_Relation_One2One('tests\Model\Address', 'address_id',  'address_id'));
+        $this->hasRelation('Staff', new ORM_Relation_One2Many('tests\Model\Staff', 'store_id', 'store_id'));
+        $this->hasRelation('Customer', new ORM_Relation_One2Many('tests\Model\Customer', 'store_id', 'store_id'));
+        $this->hasRelation('Inventory', new ORM_Relation_One2Many('tests\Model\Inventory', 'store_id', 'store_id'));
     }
 
     public static function getById($id)

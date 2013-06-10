@@ -2,11 +2,11 @@
 /**
  * @codeCoverageIgnore
  */
-abstract class ORMTest_Model_Base_FilmText extends ORMTest_Model_Base_Record
+abstract class tests\Model\Base_FilmText extends tests\Model\Base_Record
 {
     const TABLE_NAME = 'film_text';
 
-    const MODEL_NAME = 'ORMTest_Model_FilmText';
+    const MODEL_NAME = 'tests\Model\FilmText';
 
     public function __construct()
     {

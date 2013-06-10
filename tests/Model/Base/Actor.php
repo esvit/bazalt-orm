@@ -2,11 +2,11 @@
 /**
  * @codeCoverageIgnore
  */
-abstract class ORMTest_Model_Base_Actor extends ORMTest_Model_Base_Record
+abstract class tests\Model\Base_Actor extends tests\Model\Base_Record
 {
     const TABLE_NAME = 'actor';
 
-    const MODEL_NAME = 'ORMTest_Model_Actor';
+    const MODEL_NAME = 'tests\Model\Actor';
 
     public function __construct()
     {
@@ -23,7 +23,7 @@ abstract class ORMTest_Model_Base_Actor extends ORMTest_Model_Base_Record
 
     public function initRelations()
     {
-        $this->hasRelation('Films', new ORM_Relation_Many2Many('ORMTest_Model_Film', 'actor_id', 'ORMTest_Model_FilmActor', 'film_id'));
+        $this->hasRelation('Films', new ORM_Relation_Many2Many('tests\Model\Film', 'actor_id', 'tests\Model\FilmActor', 'film_id'));
     }
 
     public static function getById($id)

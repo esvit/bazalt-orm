@@ -2,11 +2,11 @@
 /**
  * @codeCoverageIgnore
  */
-abstract class ORMTest_Model_Base_City extends ORMTest_Model_Base_Record
+abstract class tests\Model\Base_City extends tests\Model\Base_Record
 {
     const TABLE_NAME = 'city';
 
-    const MODEL_NAME = 'ORMTest_Model_City';
+    const MODEL_NAME = 'tests\Model\City';
 
     public function __construct()
     {
@@ -23,7 +23,7 @@ abstract class ORMTest_Model_Base_City extends ORMTest_Model_Base_Record
 
     public function initRelations()
     {
-        $this->hasRelation('Address', new ORM_Relation_One2Many('ORMTest_Model_Address', 'city_id', 'city_id'));
-        $this->hasRelation('Country', new ORM_Relation_One2One('ORMTest_Model_Country', 'country_id',  'country_id'));
+        $this->hasRelation('Address', new ORM_Relation_One2Many('tests\Model\Address', 'city_id', 'city_id'));
+        $this->hasRelation('Country', new ORM_Relation_One2One('tests\Model\Country', 'country_id',  'country_id'));
     }
 }

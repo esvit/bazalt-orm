@@ -11,11 +11,11 @@ class ORMTest_Record extends Tests\BaseCase
 
     protected function setUp()
     {
-        $this->testObj = new ORMTest_Model_Actor();
+        $this->testObj = new tests\Model\Actor();
         $this->testObj->first_name = substr(mt_rand().time(),16);
         $this->testObj->last_name = '123456';
         
-        $builder = ORM\ORM::insert('ORMTest_Model_Actor');
+        $builder = ORM\ORM::insert('tests\Model\Actor');
         $builder->set($this->testObj)
                 ->exec();
         $this->testObj->actor_id = $builder->Connection->getLastInsertId();
@@ -36,9 +36,9 @@ class ORMTest_Record extends Tests\BaseCase
      */
     public function testGetTable()
     {
-        $t = ORM\BaseRecord::getTable('ORMTest_Model_Actor');
+        $t = ORM\BaseRecord::getTable('tests\Model\Actor');
         
-        $this->assertEquals('ORMTest_Model_Actor', get_class($t));
+        $this->assertEquals('tests\Model\Actor', get_class($t));
     }
 
     /**
