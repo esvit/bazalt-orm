@@ -1,0 +1,17 @@
+language: php
+
+php:
+  - 5.4
+
+env:
+  - APPLICATION_ENV="testing" DB="mysql" DB_USERNAME="root"
+
+before_install:
+  - mysql -u$DB_USERNAME -e 'create database tests;'
+  - unzip tests/sakila.zip
+  - mysql -u$DB_USERNAME tests < sakila.sql
+
+script:
+  - mkdir -p tmp/logs
+  - mkdir -p build/logs
+  - phpunit --configuration tests/$DB.xml
