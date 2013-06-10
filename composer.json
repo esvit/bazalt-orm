@@ -1,0 +1,16 @@
+{
+    "name": "bazalt/orm",
+    "license": "New BSD License",
+    "authors": [
+        {
+            "name": "Vitalii Savchuk",
+            "email": "esvit666@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {"Bazalt\\ORM": "src/ORM"}
+    },
+    "require": {
+        "php": ">=5.4.0"
+    }
+}
