@@ -1,5 +1,7 @@
 <?php
 
+require_once '../vendor/autoload.php';
+
 /*
     CREATE USER 'test'@'localhost' IDENTIFIED BY 'test';
     GRANT ALL PRIVILEGES ON *.* TO 'test'@'localhost' WITH GRANT OPTION;
