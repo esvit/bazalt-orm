@@ -1,9 +1,5 @@
 <?php
 
-using('Framework.System.ORM');
-
-Framework\Core\Autoload::registerNamespace('ORMTest', dirname(__FILE__));
-
 /*
     CREATE USER 'test'@'localhost' IDENTIFIED BY 'test';
     GRANT ALL PRIVILEGES ON *.* TO 'test'@'localhost' WITH GRANT OPTION;
@@ -22,8 +18,8 @@ $dbParams = array(
     'port' => $GLOBALS['db_port']
 );
 
-$connectionString = new ORM_Adapter_Mysql($dbParams);
-ORM_Connection_Manager::add($connectionString, 'test');
+$connectionString = new Bazalt\ORM\Adapter\Mysql($dbParams);
+Bazalt\ORM\Connection\Manager::add($connectionString, 'test');
 
 // Autoloading is not available if using PHP in CLI interactive mode.
 new ORMTest_Model_Actor();

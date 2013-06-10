@@ -12,8 +12,7 @@
 
 namespace Bazalt\ORM\Connection;
 
-use Framework\Core\Logger,
-    Bazalt\ORM as ORM;
+use Bazalt\ORM as ORM;
 
 /**
  * ORM_Connection_Manager

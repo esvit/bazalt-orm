@@ -12,8 +12,7 @@
 
 namespace Bazalt\ORM\Adapter;
 
-use Framework\Core\Logger,
-    Bazalt\ORM as ORM;
+use Bazalt\ORM as ORM;
 
 /**
  * Підключення для провайдера mysql
