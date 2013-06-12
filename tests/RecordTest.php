@@ -29,7 +29,7 @@ class Record extends BaseCase
     }
 
     /**
-     * @covers Framework\System\ORM\BaseRecord::getTable
+     * @covers Bazalt\ORM\BaseRecord::getTable
      */
     public function testGetTable()
     {
@@ -39,7 +39,7 @@ class Record extends BaseCase
     }
 
     /**
-     * @covers Framework\System\ORM\BaseRecord::getTableName
+     * @covers Bazalt\ORM\BaseRecord::getTableName
      */
     public function testGetTableName()
     {
@@ -48,7 +48,7 @@ class Record extends BaseCase
     }
 
     /**
-     * @covers Framework\System\ORM\BaseRecord::getTableName
+     * @covers Bazalt\ORM\BaseRecord::getTableName
      * @expectedException Bazalt\ORM\Exception\Table
      */
     public function testGetTableNameException()

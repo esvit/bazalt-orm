@@ -1,6 +1,8 @@
 <?php
 
-class ORMTest_BaseRecord extends Tests\BaseCase
+namespace tests;
+
+class BaseRecordTest extends \tests\BaseCase
 {
     protected $testObj;
 
@@ -8,24 +10,24 @@ class ORMTest_BaseRecord extends Tests\BaseCase
 
     protected function setUp()
     {
-        $this->testObj = new tests\Model\Actor();
+        $this->testObj = new \tests\Model\Actor();
         $this->testObj->first_name = substr(mt_rand().time(),16);
         $this->testObj->last_name = '123456';
         $this->testObj->save();
 
-        $this->testObj2 = new tests\Model\Actor();
+        $this->testObj2 = new \tests\Model\Actor();
         $this->testObj2->first_name = substr(mt_rand().time(),16);
         $this->testObj2->last_name = 'qwerty';
         $this->testObj2->save();
 
-        $film = new tests\Model\Film();
+        $film = new \tests\Model\Film();
         $film->title = 'Test film 1';
         $film->language_id = 1;
 
         $this->testObj->Films->add($film);
         $this->testObj2->Films->add($film);
 
-        $film = new tests\Model\Film();
+        $film = new \tests\Model\Film();
         $film->title = 'Test film 2';
         $film->language_id = 2;
 
@@ -45,7 +47,7 @@ class ORMTest_BaseRecord extends Tests\BaseCase
     }
 
     /**
-     * @covers Framework\System\ORM\BaseRecord::__get
+     * @covers Bazalt\ORM\BaseRecord::__get
      */
     public function test__get()
     {
@@ -59,7 +61,7 @@ class ORMTest_BaseRecord extends Tests\BaseCase
     }
 
     /**
-     * @covers Framework\System\ORM\BaseRecord::getField
+     * @covers Bazalt\ORM\BaseRecord::getField
      */
     public function testGetField()
     {
