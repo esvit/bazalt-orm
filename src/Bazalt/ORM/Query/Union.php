@@ -1,29 +1,10 @@
 <?php
-/**
- * Query.php
- *
- * @category   System
- * @package    ORM
- * @subpackage Query
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
 
-use Bazalt\ORM;
+namespace Bazalt\ORM\Query;
 
-/**
- * ORM_Query_Union
- *
- * @category   System
- * @package    ORM
- * @subpackage Query
- * @author     Vitalii Savchuk <esvit666@gmail.com>
- * @author     Alex Slubsky <aslubsky@gmail.com>
- * @license    http://www.opensource.org/licenses/lgpl-license.php LGPL
- * @link       http://bazalt.org.ua/
- */
-class ORM_Query_Union extends ORM_Query_Builder
+use Bazalt\ORM as ORM;
+
+class Union extends Builder
 {
     /**
      * Початкове значення ліміту
@@ -82,7 +63,7 @@ class ORM_Query_Union extends ORM_Query_Builder
      *
      * @return this
      */
-    public function __construct(ORM_Query_Builder $query1, ORM_Query_Builder $query2)
+    public function __construct(Builder $query1, Builder $query2)
     {
         parent::__construct();
 

@@ -1,10 +1,10 @@
 <?php
 
-use Framework\System\ORM\ORM;
+namespace tests;
 
-require_once 'bootstrap.inc';
+use Bazalt\ORM as ORM;
 
-class ORMTest_ORM extends Tests\BaseCase
+class ORMTest extends \tests\BaseCase
 {
     public function testSelectt()
     {
@@ -17,7 +17,7 @@ class ORMTest_ORM extends Tests\BaseCase
 
     public function testInsert()
     {
-        $testObj = new tests\Model\Actor();
+        $testObj = new Model\Actor();
         $testObj->last_name = '123456';
         
         $sql = ORM::insert('tests\Model\Actor', $testObj)->toSQL();
@@ -25,7 +25,7 @@ class ORMTest_ORM extends Tests\BaseCase
     }
     
     /**
-     * @expectedException ORM_Exception_Insert
+     * @expectedException Bazalt\ORM\Exception\Insert
      */
     public function testInsertException()
     {
@@ -34,10 +34,10 @@ class ORMTest_ORM extends Tests\BaseCase
 
     public function testUnion()
     {
-        $query1 = new ORM_Query_Select();
+        $query1 = new \Bazalt\ORM\Query\Select();
         $query1->from('tests\Model\Actor');
         
-        $query2 = new ORM_Query_Select();
+        $query2 = new \Bazalt\ORM\Query\Select();
         $query2->from('tests\Model\Address');
         
         $union = ORM::union($query1, $query2);

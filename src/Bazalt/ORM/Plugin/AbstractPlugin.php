@@ -1,30 +1,9 @@
 <?php
-/**
- * Abstract.php
- *
- * @category   System
- * @package    ORM
- * @subpackage Plugin
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
 
 namespace Bazalt\ORM\Plugin;
 
 use Bazalt\ORM\Record;
 
-/**
- * AbstractPlugin
- * Клас, що описує плагін ORM
- *
- * @category   System
- * @package    ORM
- * @subpackage Plugin
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
 abstract class AbstractPlugin
 {
     /**

@@ -1,27 +1,7 @@
 <?php
-/**
- * Model.php
- *
- * @category   System
- * @package    ORM
- * @subpackage Exception
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
 
 namespace Bazalt\ORM\Exception;
 
-/**
- * ORM_Exception_Model
- *
- * @category   System
- * @package    ORM
- * @subpackage Exception
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
 class Model extends Base
 {
     /**

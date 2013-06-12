@@ -1,27 +1,7 @@
 <?php
-/**
- * Query.php
- *
- * @category   System
- * @package    ORM
- * @subpackage Exception
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
 
 use Framework\Core\Logger;
 
-/**
- * Розширений Exception для ORM_Query
- *
- * @category   System
- * @package    ORM
- * @subpackage Exception
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
 class ORM_Exception_Query extends ORM_Exception_Base
 {
     /**

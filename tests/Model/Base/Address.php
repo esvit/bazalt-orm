@@ -1,8 +1,11 @@
 <?php
+
+namespace tests\Model\Base;
+
 /**
  * @codeCoverageIgnore
  */
-abstract class tests\Model\Base_Address extends tests\Model\Base_Record
+abstract class Address extends Record
 {
     const TABLE_NAME = 'address';
 
@@ -18,7 +21,7 @@ abstract class tests\Model\Base_Address extends tests\Model\Base_Record
         $this->hasColumn('address_id', 'PUA:smallint(5)');
         $this->hasColumn('address', 'varchar(50)');
         $this->hasColumn('address2', 'N:varchar(50)');
-        $this->hasColumn('district', 'varchar(20)');
+        $this->hasColumn('district', 'varchar(20)|"test"');
         $this->hasColumn('city_id', 'U:smallint(5)');
         $this->hasColumn('postal_code', 'N:varchar(10)');
         $this->hasColumn('phone', 'varchar(20)');
@@ -27,29 +30,9 @@ abstract class tests\Model\Base_Address extends tests\Model\Base_Record
 
     public function initRelations()
     {
-        $this->hasRelation('Customer', new ORM_Relation_One2Many('tests\Model\Customer', 'address_id', 'address_id'));
-        $this->hasRelation('Staff', new ORM_Relation_One2Many('tests\Model\Staff', 'address_id', 'address_id'));
-        $this->hasRelation('Store', new ORM_Relation_One2Many('tests\Model\Store', 'address_id', 'address_id'));
-        $this->hasRelation('City', new ORM_Relation_One2One('tests\Model\City', 'city_id',  'city_id'));
-    }
-
-    public static function getById($id)
-    {
-        return parent::getRecordById($id, self::MODEL_NAME);
-    }
-
-    public static function getAll($limit = null)
-    {
-        return parent::getAllRecords($limit, self::MODEL_NAME);
-    }
-
-    public static function select($fields = null)
-    {
-        return ORM::select(self::MODEL_NAME, $fields);
-    }
-
-    public static function insert($fields = null)
-    {
-        return ORM::insert(self::MODEL_NAME, $fields);
+        $this->hasRelation('Customer', new \Bazalt\ORM\Relation\One2Many('tests\Model\Customer', 'address_id', 'address_id'));
+        $this->hasRelation('Staff', new \Bazalt\ORM\Relation\One2Many('tests\Model\Staff', 'address_id', 'address_id'));
+        $this->hasRelation('Store', new \Bazalt\ORM\Relation\One2Many('tests\Model\Store', 'address_id', 'address_id'));
+        $this->hasRelation('City', new \Bazalt\ORM\Relation\One2One('tests\Model\City', 'city_id',  'city_id'));
     }
 }

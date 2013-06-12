@@ -1,25 +1,7 @@
 <?php
-/**
- * BaseRecord.php
- *
- * @category   System
- * @package    ORM
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
 
 namespace Bazalt\ORM;
 
-/**
- * BaseRecord
- *
- * @category   System
- * @package    ORM
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
 abstract class BaseRecord implements \IteratorAggregate
 {
     /**
@@ -541,7 +523,7 @@ abstract class BaseRecord implements \IteratorAggregate
     public static function getAllColumns($tableName)
     {
         if (!array_key_exists($tableName, self::$allTables)) {
-            throw new \ORM_Exception_Table('Table not found', $tableName);
+            throw new Exception\Table('Table not found', $tableName);
         }
         return self::$allTables[$tableName];
     }
@@ -628,7 +610,7 @@ abstract class BaseRecord implements \IteratorAggregate
         $references = $this->getReferences();
         if ($references != null && array_key_exists($name, $references)) {
             $relation = clone $references[$name];
-            $relation->setBaseObject($this);
+            $relation->baseObject($this);
             
             $relation->set($value);
             return;
@@ -668,7 +650,7 @@ abstract class BaseRecord implements \IteratorAggregate
             return $this->values[$name];
         } else if (array_key_exists($name, $references = $this->getReferences())) {
             $relation = clone $references[$name];
-            $relation->setBaseObject($this);
+            $relation->baseObject($this);
 
             return ($relation->isManyResult()) ? $relation : $relation->get();
         } else if (array_key_exists($name, $columns = $this->getColumns())) {
@@ -745,14 +727,14 @@ abstract class BaseRecord implements \IteratorAggregate
      *
      * @return void
      */
-    public function hasRelation($name, \ORM_Relation_Abstract $relation)
+    public function hasRelation($name, Relation\AbstractRelation $relation)
     {
         $references = &$this->getReferences();
         if (!array_key_exists($name, $references)) {
             $references[$name] = $relation;
             $relation->initForModel($this);
         } else {
-            throw new \ORM_Exception_Table('Relation "' . $name . '" already present in this model', $this->tableName);
+            throw new Exception\Table('Relation "' . $name . '" already present in this model', $this->tableName);
         }
     }
 

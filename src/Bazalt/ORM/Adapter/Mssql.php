@@ -10,6 +10,8 @@
  * @version    $Revision: 133 $
  */
 
+namespace Bazalt\ORM\Adapter;
+
 /**
  * Підключення для провайдера mssql
  *
@@ -20,7 +22,7 @@
  * @license    GPLv3
  * @version    $Revision: 133 $
  */ 
-class ORM_Adapter_Mssql extends ORM_Adapter_Abstract
+class Mssql extends AbstractAdapter
 {
     /**
      * Провайдер
@@ -44,7 +46,7 @@ class ORM_Adapter_Mssql extends ORM_Adapter_Abstract
         $this->port     = $this->getOption('port', 1433);
 
         if (!is_numeric($this->port)) {
-            throw new InvalidArgumentException('Invalid port');
+            throw new \InvalidArgumentException('Invalid port');
         }
         $this->port = intval($this->port);
     }
@@ -97,6 +99,6 @@ class ORM_Adapter_Mssql extends ORM_Adapter_Abstract
     public function connect($name)
     {
         $this->name = $name;
-        return new ORM_Connection_Mssql($this);
+        return new \Bazalt\ORM\Connection\Mssql($this);
     }
 }

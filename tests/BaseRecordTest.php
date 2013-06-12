@@ -1,7 +1,5 @@
 <?php
 
-require_once 'bootstrap.inc';
-
 class ORMTest_BaseRecord extends Tests\BaseCase
 {
     protected $testObj;
@@ -57,7 +55,7 @@ class ORMTest_BaseRecord extends Tests\BaseCase
         $films = $this->testObj->Films;
         $films2 = $this->testObj2->Films;
 
-        $this->assertNotEquals($films->BaseObject->actor_id, $films2->BaseObject->actor_id);
+        $this->assertNotEquals($films->baseObject()->actor_id, $films2->baseObject()->actor_id);
     }
 
     /**

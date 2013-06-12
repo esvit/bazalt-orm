@@ -1,8 +1,11 @@
 <?php
+
+namespace tests\Model\Base;
+
 /**
  * @codeCoverageIgnore
  */
-abstract class tests\Model\Base_City extends tests\Model\Base_Record
+abstract class City extends Record
 {
     const TABLE_NAME = 'city';
 
@@ -23,7 +26,7 @@ abstract class tests\Model\Base_City extends tests\Model\Base_Record
 
     public function initRelations()
     {
-        $this->hasRelation('Address', new ORM_Relation_One2Many('tests\Model\Address', 'city_id', 'city_id'));
-        $this->hasRelation('Country', new ORM_Relation_One2One('tests\Model\Country', 'country_id',  'country_id'));
+        $this->hasRelation('Address', new \Bazalt\ORM\Relation\One2Many('tests\Model\Address', 'city_id', 'city_id'));
+        $this->hasRelation('Country', new \Bazalt\ORM\Relation\One2One('tests\Model\Country', 'country_id',  'country_id'));
     }
 }

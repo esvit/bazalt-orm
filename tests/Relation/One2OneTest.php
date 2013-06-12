@@ -1,22 +1,22 @@
 <?php
 
-require_once dirname(__FILE__). '/../bootstrap.inc';
+namespace tests\Relation;
 
-class ORM_Test_Relation_One2One extends Tests\BaseCase
+class One2One extends \tests\BaseCase
 {
     protected $testObj;
 
     protected function tearDown()
     {
-        $this->testObj = tests\Model\Address::getById(1);
+        $this->testObj = \tests\Model\Address::getById(1);
 
-        $newCity = tests\Model\City::select()->where('city = ?', 'Lethbridge')->fetch();
+        $newCity = \tests\Model\City::select()->where('city = ?', 'Lethbridge')->fetch();
         $this->testObj->City = $newCity;
     }
 
     public function testGet()
     {
-        $this->testObj = tests\Model\Address::getById(1);
+        $this->testObj = \tests\Model\Address::getById(1);
         $this->assertEquals($this->testObj->City->city, 'Lethbridge');
 
         $this->testObj->city_id = null;
@@ -25,10 +25,10 @@ class ORM_Test_Relation_One2One extends Tests\BaseCase
 
     public function testSet()
     {
-        $this->testObj = tests\Model\Address::getById(1);
+        $this->testObj = \tests\Model\Address::getById(1);
 
         $oldCity = $this->testObj->City;
-        $newCity = tests\Model\City::select()->where('city = ?', 'Abha')->fetch();
+        $newCity = \tests\Model\City::select()->where('city = ?', 'Abha')->fetch();
 
         $this->testObj->City = $newCity;
         $this->assertEquals($this->testObj->City->city, 'Abha');
@@ -36,18 +36,17 @@ class ORM_Test_Relation_One2One extends Tests\BaseCase
         $this->testObj->City = $oldCity;
         $this->assertEquals($this->testObj->City->city, 'Lethbridge');
 
-        $address = new tests\Model\Address();
+        $address = new \tests\Model\Address();
         $address->City = $oldCity;
         $this->assertEquals($address->City->city, 'Lethbridge');
     }
     
     public function testGetQuery()
     {
-        $this->testObj = new ORM_Relation_One2One('tests\Model\City', 'city_id',  'city_id');
-        $base = tests\Model\Address::getById(1);
-        $this->testObj->setBaseObject($base);
+        $this->testObj = new \Bazalt\ORM\Relation\One2One('tests\Model\City', 'city_id',  'city_id');
+        $base = \tests\Model\Address::getById(1);
+        $this->testObj->baseObject($base);
         $q = $this->testObj->getQuery();
         $this->assertEquals($q->toSql(), 'SELECT * FROM city AS ft WHERE  (ft.city_id = "300") LIMIT 1');
     }
 }
-

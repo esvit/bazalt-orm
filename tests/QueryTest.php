@@ -1,8 +1,8 @@
 <?php
 
-require_once 'bootstrap.inc';
+namespace tests;
 
-class ORMTest_Query extends Tests\BaseCase
+class ORMTest_Query extends \tests\BaseCase
 {
     protected $testObj;
 
@@ -19,11 +19,11 @@ class ORMTest_Query extends Tests\BaseCase
      */
     public function testGetTable()
     {
-        $q = new ORM_Query('SELECT * FROM actors WHERE id = ?', array(1));
+        $q = new \Bazalt\ORM\Query('SELECT * FROM actors WHERE id = ?', array(1));
         
         $this->assertEquals('SELECT * FROM actors WHERE id = 1', $q->toSQL());
 
-        $q = new ORM_Query('SELECT * FROM actors WHERE id = ?', 1);
+        $q = new \Bazalt\ORM\Query('SELECT * FROM actors WHERE id = ?', 1);
         
         $this->assertEquals('SELECT * FROM actors WHERE id = 1', $q->toSQL());
     }

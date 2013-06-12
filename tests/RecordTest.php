@@ -1,21 +1,18 @@
 <?php
-use Framework\System\ORM as ORM;
-use Framework\System\ORM\Record;
-use Framework\System\ORM\Plugin\AbstractPlugin;
 
-require_once 'bootstrap.inc';
+namespace tests;
 
-class ORMTest_Record extends Tests\BaseCase
+class Record extends BaseCase
 {
     protected $testObj;
 
     protected function setUp()
     {
-        $this->testObj = new tests\Model\Actor();
+        $this->testObj = new Model\Actor();
         $this->testObj->first_name = substr(mt_rand().time(),16);
         $this->testObj->last_name = '123456';
         
-        $builder = ORM\ORM::insert('tests\Model\Actor');
+        $builder = \Bazalt\ORM::insert('tests\Model\Actor');
         $builder->set($this->testObj)
                 ->exec();
         $this->testObj->actor_id = $builder->Connection->getLastInsertId();
@@ -36,7 +33,7 @@ class ORMTest_Record extends Tests\BaseCase
      */
     public function testGetTable()
     {
-        $t = ORM\BaseRecord::getTable('tests\Model\Actor');
+        $t = \Bazalt\ORM\BaseRecord::getTable('tests\Model\Actor');
         
         $this->assertEquals('tests\Model\Actor', get_class($t));
     }
@@ -46,24 +43,24 @@ class ORMTest_Record extends Tests\BaseCase
      */
     public function testGetTableName()
     {
-        $tableName = ORM\BaseRecord::getTableName(get_class($this->testObj));
+        $tableName = \Bazalt\ORM\BaseRecord::getTableName(get_class($this->testObj));
         $this->assertEquals('actor', $tableName);
     }
 
     /**
      * @covers Framework\System\ORM\BaseRecord::getTableName
-     * @expectedException ORM_Exception_Table
+     * @expectedException Bazalt\ORM\Exception\Table
      */
     public function testGetTableNameException()
     {
-        $tableName = ORM\BaseRecord::getTableName('test');
+        $tableName = \Bazalt\ORM\BaseRecord::getTableName('test');
         $this->assertEquals($tableName, null);
     }
     
     public function testGetAllColumns()
     {
-        $tableName = ORM\BaseRecord::getTableName(get_class($this->testObj));
-        $colums = ORM\BaseRecord::getAllColumns($tableName);
+        $tableName = \Bazalt\ORM\BaseRecord::getTableName(get_class($this->testObj));
+        $colums = \Bazalt\ORM\BaseRecord::getAllColumns($tableName);
 
         $this->assertTrue(array_key_exists('actor_id', $colums));
         $this->assertTrue(array_key_exists('first_name', $colums));
@@ -72,18 +69,18 @@ class ORMTest_Record extends Tests\BaseCase
     }
     
     /**
-     * @expectedException ORM_Exception_Table
+     * @expectedException Bazalt\ORM\Exception\Table
      */
     public function testGetAllColumnException()
     {
-        ORM\BaseRecord::getAllColumns('notExistsModel');
+        \Bazalt\ORM\BaseRecord::getAllColumns('notExistsModel');
     }
     
     public function testGetPrimaryKeys()
     {
         $tableName = get_class($this->testObj);
         $name = 'actor_id';
-        $pks = ORM\BaseRecord::getPrimaryKeys($tableName);
+        $pks = \Bazalt\ORM\BaseRecord::getPrimaryKeys($tableName);
         $this->assertEquals($name, $pks[$name]->name());
     }
     
@@ -135,14 +132,14 @@ class ORMTest_Record extends Tests\BaseCase
         
         $tableName = get_class($this->testObj);
         $this->assertEquals('actor_id', $this->testObj->getAutoIncrementColumn($tableName)->name());
-        $pks = ORM\BaseRecord::getPrimaryKeys($tableName);
+        $pks = \Bazalt\ORM\BaseRecord::getPrimaryKeys($tableName);
         $this->assertEquals($name, $pks[$name]->name());
 
         $this->testObj->removeColumn($name);
     }
 
     /**
-     * @expectedException ORM_Exception_Table
+     * @expectedException Bazalt\ORM\Exception\Table
      */
     public function testHasAIColumnException()
     {
@@ -162,24 +159,24 @@ class ORMTest_Record extends Tests\BaseCase
     public function testHasRelation()
     {
         $name = 'testRelation';
-        $this->testObj->hasRelation($name, new ORM_Relation_One2One('test', 'test', 'test'));
+        $this->testObj->hasRelation($name, new \Bazalt\ORM\Relation\One2One('test', 'test', 'test'));
         
         $this->assertTrue(array_key_exists($name, $this->testObj->getReferences()));
     }
     
     /**
-     * @expectedException ORM_Exception_Table
+     * @expectedException Bazalt\ORM\Exception\Table
      */
     public function testHasRelationException()
     {
-        $this->testObj->hasRelation('testRelation', new ORM_Relation_One2One('test', 'test', 'test'));
-        $this->testObj->hasRelation('testRelation', new ORM_Relation_One2One('test', 'test', 'test'));
+        $this->testObj->hasRelation('testRelation', new \Bazalt\ORM\Relation\One2One('test', 'test', 'test'));
+        $this->testObj->hasRelation('testRelation', new \Bazalt\ORM\Relation\One2One('test', 'test', 'test'));
     }
     
     public function testHasPlugin()
     {
         $options = array('one' => 'two');
-        $name = 'TestORMPlugin';
+        $name = 'tests\TestORMPlugin';
         $this->testObj->hasPlugin($name, $options);
         
         $plugins = $this->testObj->getPlugins();
@@ -246,19 +243,19 @@ class ORMTest_Record extends Tests\BaseCase
 }
 
 
-class TestORMPlugin extends AbstractPlugin
+class TestORMPlugin extends \Bazalt\ORM\Plugin\AbstractPlugin
 {
     public static $inited = false;
     public static $initedFields = false;
     public static $initedRelations = false;
     public static $initedPlugins = false;
 
-    public function init(Record $model, $options)
+    public function init(\Bazalt\ORM\Record $model, $options)
     {
         self::$inited = true;
     }
     
-    public function initFields(Record $model, $options)
+    public function initFields(\Bazalt\ORM\Record $model, $options)
     {
         self::$initedFields = true;
     }

@@ -1,30 +1,13 @@
 <?php
-/**
- * Abstract.php
- *
- * @category   System
- * @package    ORM
- * @subpackage Relation
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
+
+namespace Bazalt\ORM\Relation;
 
 use Bazalt\ORM\Record;
 
-/**
- * ORM_Relation_Abstract
- * Описує звязки між моделями.
- *
- * @category   System
- * @package    ORM
- * @subpackage Relation
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */ 
-abstract class ORM_Relation_Abstract
+abstract class AbstractRelation
 {
+    protected $dispatcher;
+
     /**
      * Назва моделі до якої іде звязок
      *
@@ -91,8 +74,6 @@ abstract class ORM_Relation_Abstract
         $this->refTable = $refTable;
         $this->refColumn = $refColumn;
         $this->additionalParams = $additionalParams;
-
-        parent::__construct();
     }
 
     /**
@@ -118,9 +99,13 @@ abstract class ORM_Relation_Abstract
      *
      * @return void
      */
-    public function setBaseObject(Record &$object)
+    public function baseObject(Record &$object = null)
     {
-        $this->baseObject = $object;
+        if ($object !== null) {
+            $this->baseObject = $object;
+            return $this;
+        }
+        return $this->baseObject;
     }
 
     /**
@@ -149,7 +134,7 @@ abstract class ORM_Relation_Abstract
      */ 
     public function isManyResult()
     {
-        return $this->getType()->hasInterface('ORM_Interface_RelationMany');
+        return $this instanceof IRelationMany;
     }
 
     /**
@@ -180,7 +165,7 @@ abstract class ORM_Relation_Abstract
      *
      * @return void
      */
-    protected function applyAddParams(ORM_Query $q)
+    protected function applyAddParams(\Bazalt\ORM\Query $q)
     {
         if ($this->additionalParams) {
             foreach ($this->additionalParams as $name => $value) {
@@ -256,5 +241,13 @@ abstract class ORM_Relation_Abstract
     {
         $arr = $this->getAll();
         return isset($arr[$this->_position]);
+    }
+
+    public function dispatcher()
+    {
+        if (!$this->dispatcher) {
+            $this->dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
+        }
+        return $this->dispatcher;
     }
 }

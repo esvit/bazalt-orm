@@ -1,29 +1,7 @@
 <?php
-/**
- * Insert.php
- *
- * @category   System
- * @package    ORM
- * @subpackage Exception
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
 
-namespace Bazalt\ORM;
+namespace Bazalt\ORM\Exception;
 
-use Bazalt\ORM as ORM;
-
-/**
- * ORM_Exception_Insert
- *
- * @category   System
- * @package    ORM
- * @subpackage Exception
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
 class Insert extends Base
 {
     /**
@@ -41,7 +19,7 @@ class Insert extends Base
      * @param Exception        $innerEx Inner exception
      * @param int              $code    Exception code
      */
-    public function __construct($message, ORM\Query\Insert $builder, $innerEx = null, $code = 0)
+    public function __construct($message, \Bazalt\ORM\Query\Insert $builder, $innerEx = null, $code = 0)
     {
         $this->builder = $builder;
 

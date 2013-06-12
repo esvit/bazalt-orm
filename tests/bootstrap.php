@@ -1,6 +1,12 @@
 <?php
 
+namespace tests;
+
 require_once __DIR__ . '/../vendor/autoload.php';
+
+$loader = new \Composer\Autoload\ClassLoader();
+$loader->add('tests', __DIR__ . '/..');
+$loader->register();
 
 /*
     CREATE USER 'test'@'localhost' IDENTIFIED BY 'test';
@@ -20,8 +26,8 @@ $dbParams = array(
     'port' => $GLOBALS['db_port']
 );
 
-$connectionString = new Bazalt\ORM\Adapter\Mysql($dbParams);
-Bazalt\ORM\Connection\Manager::add($connectionString, 'test');
+$connectionString = new \Bazalt\ORM\Adapter\Mysql($dbParams);
+\Bazalt\ORM\Connection\Manager::add($connectionString, 'test');
 
 // Autoloading is not available if using PHP in CLI interactive mode.
 new Model\Actor();

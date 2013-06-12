@@ -2,14 +2,14 @@
 
 <phpunit backupGlobals="false"
          backupStaticAttributes="false"
-         colors="true"
+         colors="false"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="false"
-         bootstrap="bootstrap.inc"
+         bootstrap="bootstrap.php"
 >
     <php>
         <ini name="intl.default_locale" value="en"/>
@@ -20,7 +20,7 @@
         <var name="db_host" value="localhost" />
         <var name="db_username" value="root" />
         <var name="db_password" value="" />
-        <var name="db_name" value="tests" />
+        <var name="db_name" value="orm_tests_db" />
         <var name="db_port" value="3306"/>
     </php>
 

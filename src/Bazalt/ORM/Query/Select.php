@@ -1,31 +1,9 @@
 <?php
-/**
- * Select.php
- *
- * @category   System
- * @package    ORM
- * @subpackage Query
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
 
 namespace Bazalt\ORM\Query;
 
 use Bazalt\ORM\Query\Fetchable;
 
-/**
- * ORM_Query_Select
- *
- * @todo Не привязні аліаси до $select та $orderBy полів запиту
- *
- * @category   System
- * @package    ORM
- * @subpackage Query
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */ 
 class Select extends Builder
 {
     use Fetchable;
@@ -146,7 +124,7 @@ class Select extends Builder
      */
     public function limit($from, $count = null)
     {
-        if (!\Framework\Core\Helper\Number::isValid($from) || (!is_null($count) && !\Framework\Core\Helper\Number::isValid($count))) {
+        if (!is_numeric($from) || (!is_null($count) && !is_numeric($count))) {
             throw new \InvalidArgumentException();
         }
         $this->limitFrom = $from;

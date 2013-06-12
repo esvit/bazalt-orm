@@ -1,12 +1,14 @@
 <?php
 
-require_once 'bootstrap.inc';
+namespace tests;
 
-class ORMTest_Adapter extends Tests\BaseCase
+class AdapterTest extends BaseCase
 {   
     public function testMysqlConnectionString()
     {
-        $string = new ORM_Adapter_Mysql(array('server' => 'localhost', 'database' => 'bazalt_tests', 'username' => 'root', 'password' => 'test'));
+        $string = new \Bazalt\ORM\Adapter\Mysql(
+            array('server' => 'localhost', 'database' => 'bazalt_tests', 'username' => 'root', 'password' => 'test')
+        );
         $this->assertEquals($string->toPDOConnectionString(),'mysql:host=localhost;port=3306;dbname=bazalt_tests');
 
         $this->assertEquals($string->getPassword(),'test');
@@ -15,26 +17,26 @@ class ORMTest_Adapter extends Tests\BaseCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testMysqlConnectionStringInvalidOptions()
     {
-        $string = new ORM_Adapter_Mysql('test');
+        $string = new \Bazalt\ORM\Adapter\Mysql('test');
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testMysqlConnectionStringUnknownDatabase()
     {
-        $string = new ORM_Adapter_Mysql(array());
+        $string = new \Bazalt\ORM\Adapter\Mysql(array());
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @expectedException \InvalidArgumentException
      */
     public function testMysqlConnectionStringInvalidPort()
     {
-        $string = new ORM_Adapter_Mysql(array('database' => 'bazalt_tests', 'port' => 'wrong'));
+        $string = new \Bazalt\ORM\Adapter\Mysql(array('database' => 'bazalt_tests', 'port' => 'wrong'));
     }
 }

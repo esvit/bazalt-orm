@@ -1,11 +1,11 @@
 <?php
 
-use Framework\System\ORM\Record;
+namespace tests\Model\Base;
 
 /**
  * @codeCoverageIgnore
  */
-abstract class tests\Model\Base_Record extends Record
+abstract class Record extends \Bazalt\ORM\Record
 {
     public function getSQLConnectionName()
     {

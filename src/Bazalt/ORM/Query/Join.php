@@ -1,28 +1,8 @@
 <?php
-use Bazalt\ORM\Record;
 
-/**
- * Join.php
- *
- * @category   System
- * @package    ORM
- * @subpackage Query
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
+namespace Bazalt\ORM\Query;
 
-/**
- * ORM_Query_Join
- *
- * @category   System
- * @package    ORM
- * @subpackage Query
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
-class ORM_Query_Join extends ORM_Query_Builder
+class Join extends Builder
 {
     /**
      * Умова вибірки
@@ -139,7 +119,7 @@ class ORM_Query_Join extends ORM_Query_Builder
      */
     public function getTable()
     {
-        $table = Record::getTableName($this->from);
+        $table = \Bazalt\ORM\Record::getTableName($this->from);
         if (empty($table)) {
             throw new Exception('Invalid model "' . $this->from . '"');
         }

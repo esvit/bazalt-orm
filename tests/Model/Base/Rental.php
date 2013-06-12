@@ -1,8 +1,11 @@
 <?php
+
+namespace tests\Model\Base;
+
 /**
  * @codeCoverageIgnore
  */
-abstract class tests\Model\Base_Rental extends tests\Model\Base_Record
+abstract class Rental extends Record
 {
     const TABLE_NAME = 'rental';
 
@@ -26,29 +29,9 @@ abstract class tests\Model\Base_Rental extends tests\Model\Base_Record
 
     public function initRelations()
     {
-        $this->hasRelation('Customer', new ORM_Relation_One2One('tests\Model\Customer', 'customer_id',  'customer_id'));
-        $this->hasRelation('Inventory', new ORM_Relation_One2One('tests\Model\Inventory', 'inventory_id',  'inventory_id'));
-        $this->hasRelation('Payment', new ORM_Relation_One2Many('tests\Model\Payment', 'rental_id', 'rental_id'));
-        $this->hasRelation('Staff', new ORM_Relation_One2One('tests\Model\Staff', 'staff_id',  'staff_id'));
-    }
-
-    public static function getById($id)
-    {
-        return parent::getRecordById($id, self::MODEL_NAME);
-    }
-
-    public static function getAll($limit = null)
-    {
-        return parent::getAllRecords($limit, self::MODEL_NAME);
-    }
-
-    public static function select($fields = null)
-    {
-        return ORM::select(self::MODEL_NAME, $fields);
-    }
-
-    public static function insert($fields = null)
-    {
-        return ORM::insert(self::MODEL_NAME, $fields);
+        $this->hasRelation('Customer', new \Bazalt\ORM\Relation\One2One('tests\Model\Customer', 'customer_id',  'customer_id'));
+        $this->hasRelation('Inventory', new \Bazalt\ORM\Relation\One2One('tests\Model\Inventory', 'inventory_id',  'inventory_id'));
+        $this->hasRelation('Payment', new \Bazalt\ORM\Relation\One2Many('tests\Model\Payment', 'rental_id', 'rental_id'));
+        $this->hasRelation('Staff', new \Bazalt\ORM\Relation\One2One('tests\Model\Staff', 'staff_id',  'staff_id'));
     }
 }

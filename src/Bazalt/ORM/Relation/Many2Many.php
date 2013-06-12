@@ -1,31 +1,12 @@
 <?php
-/**
- * Many2Many.php
- *
- * @category   System
- * @package    ORM
- * @subpackage Relation
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
+
+namespace Bazalt\ORM\Relation;
 
 use Framework\Core\Event;
 use Bazalt\ORM\Record;
 use Bazalt\ORM;
 
-/**
- * ORM_Relation_Many2Many
- * Описує звязок Many2Many між моделями.
- *
- * @category   System
- * @package    ORM
- * @subpackage Relation
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */ 
-class ORM_Relation_Many2Many extends ORM_Relation_Abstract implements ORM_Interface_RelationMany
+class Many2Many extends AbstractRelation implements IRelationMany
 {
     /**
      * Викликається при зверненні до об'єкту зв'язку і повертає масив
@@ -158,7 +139,7 @@ class ORM_Relation_Many2Many extends ORM_Relation_Abstract implements ORM_Interf
         if ($this->baseObject->isPKEmpty()) {
             throw new Exception('Save item first "' . get_class($this->baseObject) . '"');
         }
-        $this->OnAdd($this->baseObject, $item);
+        $this->dispatcher()->dispatch('OnAdd', new \Symfony\Component\EventDispatcher\Event($this->baseObject, [$item]));
 
         if ($item->isPKEmpty()) {
             $item->save();
@@ -184,7 +165,9 @@ class ORM_Relation_Many2Many extends ORM_Relation_Abstract implements ORM_Interf
     public function remove(Record $item)
     {
         $this->checkType($item);
-        $this->OnRemove($this->baseObject, $item);
+
+        $this->dispatcher()->dispatch('OnRemove', new \Symfony\Component\EventDispatcher\Event($this->baseObject, [$item]));
+
         
         $q = ORM::select($this->refTable)
             ->where($this->column.' = ?', $this->baseObject->getAutoIncrementValue())

@@ -1,27 +1,7 @@
 <?php
-/**
- * Table.php
- *
- * @category   System
- * @package    ORM
- * @subpackage Exception
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
 
 namespace Bazalt\ORM\Exception;
 
-/**
- * ORM_Exception_Table
- *
- * @category   System
- * @package    ORM
- * @subpackage Exception
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
 class Table extends Base
 {
     /**
@@ -43,7 +23,7 @@ class Table extends Base
     {
         $this->tableName = $tableName;
 
-        parent::__construct($message, $code, $innerEx);
+        parent::__construct($message, $innerEx, $code);
     }
 
     /**

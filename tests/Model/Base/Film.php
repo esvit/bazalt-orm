@@ -1,8 +1,11 @@
 <?php
+
+namespace tests\Model\Base;
+
 /**
  * @codeCoverageIgnore
  */
-abstract class tests\Model\Base_Film extends tests\Model\Base_Record
+abstract class Film extends Record
 {
     const TABLE_NAME = 'film';
 
@@ -32,29 +35,9 @@ abstract class tests\Model\Base_Film extends tests\Model\Base_Record
 
     public function initRelations()
     {
-        $this->hasRelation('FilmActor', new ORM_Relation_One2Many('tests\Model\FilmActor', 'film_id', 'film_id'));
-        $this->hasRelation('FilmCategory', new ORM_Relation_One2Many('tests\Model\FilmCategory', 'film_id', 'film_id'));
-        $this->hasRelation('Inventory', new ORM_Relation_One2Many('tests\Model\Inventory', 'film_id', 'film_id'));
-        $this->hasRelation('Language', new ORM_Relation_One2One('tests\Model\Language', 'original_language_id',  'language_id'));
-    }
-
-    public static function getById($id)
-    {
-        return parent::getRecordById($id, self::MODEL_NAME);
-    }
-
-    public static function getAll($limit = null)
-    {
-        return parent::getAllRecords($limit, self::MODEL_NAME);
-    }
-
-    public static function select($fields = null)
-    {
-        return ORM::select(self::MODEL_NAME, $fields);
-    }
-
-    public static function insert($fields = null)
-    {
-        return ORM::insert(self::MODEL_NAME, $fields);
+        $this->hasRelation('FilmActor', new \Bazalt\ORM\Relation\One2Many('tests\Model\FilmActor', 'film_id', 'film_id'));
+        $this->hasRelation('FilmCategory', new \Bazalt\ORM\Relation\One2Many('tests\Model\FilmCategory', 'film_id', 'film_id'));
+        $this->hasRelation('Inventory', new \Bazalt\ORM\Relation\One2Many('tests\Model\Inventory', 'film_id', 'film_id'));
+        $this->hasRelation('Language', new \Bazalt\ORM\Relation\One2One('tests\Model\Language', 'original_language_id',  'language_id'));
     }
 }

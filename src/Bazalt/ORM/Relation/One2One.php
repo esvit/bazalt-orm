@@ -1,30 +1,8 @@
 <?php
-use Bazalt\ORM;
-use Bazalt\ORM\Record;
 
-/**
- * One2One.php
- *
- * @category   System
- * @package    ORM
- * @subpackage Relation
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
+namespace Bazalt\ORM\Relation;
 
-/**
- * ORM_Relation_One2One
- * Описує звязок One2One між моделями.
- *
- * @category   System
- * @package    ORM
- * @subpackage Relation
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */ 
-class ORM_Relation_One2One extends ORM_Relation_Abstract implements ORM_Interface_RelationOne
+class One2One extends AbstractRelation implements IRelationOne
 {
     /**
      * Constructor
@@ -65,7 +43,7 @@ class ORM_Relation_One2One extends ORM_Relation_Abstract implements ORM_Interfac
      *
      * @return void
      */
-    public function set(Record &$item)
+    public function set(\Bazalt\ORM\Record &$item)
     {
         $this->baseObject->setField($this->column, $item->{$this->refColumn});
 
@@ -79,10 +57,10 @@ class ORM_Relation_One2One extends ORM_Relation_Abstract implements ORM_Interfac
             }
             $id = $item->{$this->refColumn};
         }
-        $q = ORM::update(get_class($this->baseObject) . ' ft')
+        $q = \Bazalt\ORM::update(get_class($this->baseObject) . ' ft')
                 ->set($this->column, $id);
 
-        $pKeys = Record::getPrimaryKeys(get_class($this->baseObject));
+        $pKeys = \Bazalt\ORM\Record::getPrimaryKeys(get_class($this->baseObject));
 
         foreach ($pKeys as $key) {
             $q->andWhere($key->name() . ' = ?', $this->baseObject->{$key->name()});
@@ -105,7 +83,7 @@ class ORM_Relation_One2One extends ORM_Relation_Abstract implements ORM_Interfac
             return null;
         }
         $idVal = $this->baseObject->$c;
-        $q = ORM::select($this->name . ' ft')
+        $q = \Bazalt\ORM::select($this->name . ' ft')
                 ->andWhere('ft.' . $this->refColumn . ' = ?', $idVal)
                 ->limit(1);
         $this->applyAddParams($q);

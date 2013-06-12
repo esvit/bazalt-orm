@@ -1,14 +1,14 @@
 <?php
 
-require_once dirname(__FILE__) . '/../bootstrap.inc';
+namespace tests\Relation;
 
-class ORM_Test_Relation_One2Many extends Tests\BaseCase
+class One2Many extends \tests\BaseCase
 {
     protected $testObj;
 
     public function testGet()
     {
-        $this->testObj = tests\Model\Address::getById(3);
+        $this->testObj = \tests\Model\Address::getById(3);
         $objs = $this->testObj->Staff->get();
         $this->assertEquals(count($objs), 1);
         $this->assertEquals($objs[0]->staff_id, 1);
@@ -16,17 +16,19 @@ class ORM_Test_Relation_One2Many extends Tests\BaseCase
     
     public function testGetQuery()
     {
-        $this->testObj = tests\Model\Address::getById(3);
+        $this->testObj = \tests\Model\Address::getById(3);
         $q = $this->testObj->Staff->getQuery();
         $this->assertEquals($q->toSql(), 'SELECT * FROM staff AS ft WHERE  (ft.address_id = "3") ');
     }
     
     public function testAdd()
     {
-        $this->testObj = tests\Model\City::getById(1);
+        $this->testObj = \tests\Model\City::getById(1);
         
-        $addr = new tests\Model\Address();
+        $addr = new \tests\Model\Address();
         $addr->address = 'some address';
+        $addr->district = 'test';
+        $addr->phone = 'test';
         $addr->city_id = 10;
         $addr->save();
         
@@ -57,10 +59,10 @@ class ORM_Test_Relation_One2Many extends Tests\BaseCase
 
     public function testHas()
     {
-        $this->testObj = tests\Model\City::getById(300);
+        $this->testObj = \tests\Model\City::getById(300);
         
-        $this->assertTrue($this->testObj->Address->has(tests\Model\Address::getById(1)));
-        $this->assertFalse($this->testObj->Address->has(tests\Model\Address::getById(2)));
+        $this->assertTrue($this->testObj->Address->has(\tests\Model\Address::getById(1)));
+        $this->assertFalse($this->testObj->Address->has(\tests\Model\Address::getById(2)));
     }
     
     #Exceptions

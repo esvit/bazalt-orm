@@ -1,8 +1,11 @@
 <?php
+
+namespace tests\Model\Base;
+
 /**
  * @codeCoverageIgnore
  */
-abstract class tests\Model\Base_FilmText extends tests\Model\Base_Record
+abstract class FilmText extends Record
 {
     const TABLE_NAME = 'film_text';
 
@@ -22,25 +25,5 @@ abstract class tests\Model\Base_FilmText extends tests\Model\Base_Record
 
     public function initRelations()
     {
-    }
-
-    public static function getById($id)
-    {
-        return parent::getRecordById($id, self::MODEL_NAME);
-    }
-
-    public static function getAll($limit = null)
-    {
-        return parent::getAllRecords($limit, self::MODEL_NAME);
-    }
-
-    public static function select($fields = null)
-    {
-        return ORM::select(self::MODEL_NAME, $fields);
-    }
-
-    public static function insert($fields = null)
-    {
-        return ORM::insert(self::MODEL_NAME, $fields);
     }
 }

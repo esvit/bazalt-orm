@@ -1,30 +1,10 @@
 <?php
-/**
- * ORM.php
- *
- * @category   System
- * @package    ORM
- * @subpackage Relation
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
 
 namespace Bazalt\ORM\Relation;
 
 use Bazalt\ORM as ORM;
 
-/**
- * ORM
- *
- * @category   System
- * @package    ORM
- * @subpackage Relation
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */ 
-class One2Many extends \ORM_Relation_Abstract implements \ORM_Interface_RelationMany
+class One2Many extends AbstractRelation implements IRelationMany
 {
     /**
      * Constructor
@@ -146,10 +126,11 @@ class One2Many extends \ORM_Relation_Abstract implements \ORM_Interface_Relation
      *
      * @return void
      */
-    public function add(Record $item)
+    public function add(\Bazalt\ORM\Record $item)
     {
         $this->checkType($item);
-        $this->OnAdd($this->baseObject, $item);
+
+        $this->dispatcher()->dispatch('OnAdd', new \Symfony\Component\EventDispatcher\Event($this->baseObject, [$item]));
         
         $item->{$this->refColumn} = $this->baseObject->{$this->column};
         $item->save();
@@ -175,7 +156,7 @@ class One2Many extends \ORM_Relation_Abstract implements \ORM_Interface_Relation
      *
      * @return void
      */
-    public function remove(Record $item)
+    public function remove(\Bazalt\ORM\Record $item)
     {
         throw new DontDevelopedYetException();
     }
@@ -187,7 +168,7 @@ class One2Many extends \ORM_Relation_Abstract implements \ORM_Interface_Relation
      *
      * @return bool
      */ 
-    public function has(Record $item)
+    public function has(\Bazalt\ORM\Record $item)
     {
         $this->checkType($item);
         
