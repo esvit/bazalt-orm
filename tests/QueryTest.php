@@ -2,7 +2,7 @@
 
 namespace tests;
 
-class ORMTest_Query extends \tests\BaseCase
+class Query extends \tests\BaseCase
 {
     protected $testObj;
 
@@ -15,7 +15,7 @@ class ORMTest_Query extends \tests\BaseCase
     }
 
     /**
-     * @covers ORM_Query::toSQL
+     * @covers Bazalt\ORM\Query::toSQL
      */
     public function testGetTable()
     {
