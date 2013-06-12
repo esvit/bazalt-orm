@@ -11,8 +11,10 @@
 
 namespace Bazalt;
 
-define('STAGE', 'dev');
-define('DEVELOPMENT_STAGE', 'dev');
+if (!defined('DEVELOPMENT_STAGE')) {
+    define('STAGE', 'dev');
+    define('DEVELOPMENT_STAGE', 'dev');
+}
 
 if (!extension_loaded('pdo_mysql')) {
     throw new Exception('PHP Extension "pdo_mysql" must be loaded');
