@@ -1,18 +1,8 @@
 <?php
-/**
- * Record.php
- *
- * @category   System
- * @package    ORM
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
 
 namespace Bazalt\ORM;
 
-use Framework\Core\Event,
-    Bazalt\ORM;
+use Bazalt\ORM;
 
 /**
  * ORM_Record

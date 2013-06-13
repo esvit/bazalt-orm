@@ -1,13 +1,4 @@
 <?php
-/**
- * Column.php
- *
- * @category   System
- * @package    ORM
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
 
 namespace Bazalt\ORM;
 

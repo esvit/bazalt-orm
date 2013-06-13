@@ -1,29 +1,9 @@
 <?php
-/**
- * Query.php
- *
- * @category   System
- * @package    ORM
- * @subpackage Query
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
 
 namespace Bazalt\ORM;
 
 use Bazalt\ORM;
 
-/**
- * ORM_Query
- *
- * @category   System
- * @package    ORM
- * @subpackage Query
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
 class Query
 {
     /**

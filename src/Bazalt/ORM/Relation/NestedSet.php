@@ -1,35 +1,14 @@
 <?php
-/**
- * NestedSet.php
- *
- * @category   System
- * @package    ORM
- * @subpackage Relation
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
 
-use Framework\Core\Logger;
+namespace Bazalt\ORM\Relation;
+
 use Bazalt\ORM as ORM;
 
-if (!defined('ORM\NESTEDSET_ANALYZE')) {
-    define('ORM\NESTEDSET_ANALYZE', true);
+if (!defined('ORM_NESTEDSET_ANALYZE')) {
+    define('ORM_NESTEDSET_ANALYZE', true);
 }
 
-/**
- * ORM\Relation_NestedSet
- * Реалізація NestedSet 
- * @link http://en.wikipedia.org/wiki/Nested_set_model
- *
- * @category   System
- * @package    ORM
- * @subpackage Relation
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */ 
-class ORM_Relation_NestedSet extends ORM_Relation_Abstract implements ORM_Interface_RelationMany
+class NestedSet extends AbstractRelation implements IRelationMany
 {
     /**
      * Назва лівого поля алгоритму NestedSet
@@ -144,7 +123,7 @@ class ORM_Relation_NestedSet extends ORM_Relation_Abstract implements ORM_Interf
     protected static function getRecordById($id, $className)
     {
         if (!is_numeric($id)) {
-            throw new InvalidArgumentException();
+            throw new \InvalidArgumentException();
         }
 
         $field = ORM\Record::getAutoIncrementColumn($className);
@@ -260,7 +239,7 @@ class ORM_Relation_NestedSet extends ORM_Relation_Abstract implements ORM_Interf
         $beforeItem = $this->baseObject;
 
         if (!$beforeItem) {
-            throw new Exception('Invalid element for insert');
+            throw new \Exception('Invalid element for insert');
         }
 
         $left = $beforeItem->{self::LEFT_FIELDNAME};
