@@ -1,30 +1,13 @@
 <?php
-/**
- * Collection.php
- *
- * @category   System
- * @package    ORM
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */
 
- use Bazalt\ORM;
-/**
- * ORM_Collection
- *
- * @category   System
- * @package    ORM
- * @copyright  2010 Equalteam
- * @license    GPLv3
- * @version    $Revision: 133 $
- */ 
-class ORM_Collection
+namespace Bazalt\ORM;
+
+class Collection
 {
     /**
      * Поточний запит
      *
-     * @var ORM_Query
+     * @var Query
      */
     protected $query = null;
 
@@ -59,9 +42,9 @@ class ORM_Collection
     /**
      * Construct
      *
-     * @param ORM_Query $query Поточний запит
+     * @param Query $query Поточний запит
      */
-    public function __construct(ORM_Query $query)
+    public function __construct(Query $query)
     {
         $this->query = $query;
     }
@@ -167,7 +150,7 @@ class ORM_Collection
         $this->count = $this->query->rowCount();
         $start = ($curPage-1) * $this->countPerPage;
         if ($this->count > 0 && $start >= $this->count) {
-            throw new ORM_Exception_Collection('Invalid page number');
+            throw new Exception_Collection('Invalid page number');
         }
         $q = clone $this->query;
         $q->limit($start, $this->countPerPage);
@@ -179,7 +162,7 @@ class ORM_Collection
     /**
      * Формує запит, що рахує позиції елементів
      *
-     * @return ORM_Query Запит
+     * @return Query Запит
      */
     protected function getOrderQuery()
     {
@@ -193,7 +176,7 @@ class ORM_Collection
     /**
      * Дізнається позицію елементу у колекції
      *
-     * @param ORM_Record $item Елемент
+     * @param Record $item Елемент
      *
      * @return int|null Позиція елементу у колекції
      */
@@ -209,10 +192,10 @@ class ORM_Collection
     /**
      * Повертає елемент або масив елементів, який знаходиться після заданого елементу
      *
-     * @param ORM_Record $item  Елемент
+     * @param Record $item  Елемент
      * @param int        $limit К-сть елементів в результатів
      *
-     * @return ORM_Record|array Наступний елемент(и)
+     * @return Record|array Наступний елемент(и)
      */
     public function getNext($item, $limit = 1)
     {
@@ -234,10 +217,10 @@ class ORM_Collection
     /**
      * Повертає елемент або масив елементів, який знаходиться перед заданим елементом
      *
-     * @param ORM_Record $item  Елемент
+     * @param Record $item  Елемент
      * @param int        $limit К-сть елементів в результатів
      *
-     * @return ORM_Record|array Попередній елемент(и)
+     * @return Record|array Попередній елемент(и)
      */
     public function getPrev($item, $limit = 1)
     {
@@ -289,7 +272,7 @@ class ORM_Collection
      *
      * @param string $fields Список полів для ORDER BY
      *
-     * @return ORM_Query Поточний запит
+     * @return Query Поточний запит
      */
     public function orderBy($fields)
     {
@@ -301,7 +284,7 @@ class ORM_Collection
      *
      * @param string $fields Список полів для ORDER BY
      *
-     * @return ORM_Query Поточний запит
+     * @return Query Поточний запит
      */
     public function addOrderBy($fields)
     {
@@ -324,7 +307,7 @@ class ORM_Collection
      * @param string $name      Ім'я методу
      * @param array  $arguments Список аргументів
      *
-     * @return ORM_Query Поточний запит
+     * @return Query Поточний запит
      */
     public function __call($name, $arguments = array())
     {
