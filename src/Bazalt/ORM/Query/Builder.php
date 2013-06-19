@@ -503,7 +503,7 @@ abstract class Builder extends ORM\Query
      */
     protected function addWhereIn($field, $items, $oper = 'AND', $not = false)
     {
-        if ($items instanceof Bazalt\ORM\Builder) {
+        if ($items instanceof \Bazalt\ORM\Query\Builder) {
             $this->whereParams = array_merge($this->whereParams, $items->whereParams);
             $items = $items->buildSQL();
         } else if (is_array($items)) {
