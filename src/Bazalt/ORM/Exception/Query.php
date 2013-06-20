@@ -1,8 +1,8 @@
 <?php
 
-use Framework\Core\Logger;
+namespace Bazalt\ORM\Exception;
 
-class ORM_Exception_Query extends ORM_Exception_Base
+class Query extends Base
 {
     /**
      * Попереднє повідомлення
@@ -57,9 +57,6 @@ class ORM_Exception_Query extends ORM_Exception_Base
         $this->query = $query;
         $this->params = $params;
 
-        $query = ORM_Query::getFullQuery($this->query, $this->params);
-        Logger::getInstance()->crit($query, __CLASS__);
-
         $this->code = (int)$exCode;
         $this->message = (string)$message;
     }
@@ -71,7 +68,7 @@ class ORM_Exception_Query extends ORM_Exception_Base
      */ 
     public function getDetails()
     {
-        $query = ORM_Query::getFullQuery($this->query, $this->params);
+        $query = \Bazalt\ORM\Query::getFullQuery($this->query, $this->params);
 
         $colorQuery = preg_replace('/\b(SELECT|FROM|AND|OR|ON|IS|NULL|AS|LIMIT|ASC|COUNT|DESC|WHERE|LEFT JOIN|INNER JOIN|RIGHT JOIN|ORDER BY|GROUP BY|IN|LIKE|DISTINCT|DELETE|INSERT|INTO|VALUES)\b/',
                     '<span style="color: blue">\\1</span>',

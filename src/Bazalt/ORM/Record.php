@@ -92,15 +92,7 @@ abstract class Record extends BaseRecord
     public function save()
     {
         $return = false;
-        if (isset(self::$pluginsEvents[get_class($this)]) && isset(self::$pluginsEvents[get_class($this)][self::ON_RECORD_SAVE])) {
-            foreach (self::$pluginsEvents[get_class($this)][self::ON_RECORD_SAVE] as $event) {
-                $callback = $event['callback'];
-                
-                $params = array($this);
-                $params [] = &$return;
-                call_user_func_array($callback, $params);
-            }
-        }
+        $this->checkEvent(self::ON_RECORD_SAVE, $return);
         if ($return) {
             return;
         }
@@ -139,6 +131,7 @@ abstract class Record extends BaseRecord
                 }
             }
         }
+        $this->checkEvent(self::ON_AFTER_RECORD_SAVE);
     }
 
     /**
@@ -167,6 +160,8 @@ abstract class Record extends BaseRecord
      */
     public function delete($id = null)
     {
+        $this->checkEvent(self::ON_RECORD_DELETE);
+
         $className = get_class($this);
         
         $field = self::getAutoIncrementColumn($className);
