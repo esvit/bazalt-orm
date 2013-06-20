@@ -22,19 +22,29 @@ abstract class BaseRecord implements \IteratorAggregate
     const ON_FIELD_SET = 2;
 
     /**
-     * Обробляти при збереженні
+     * Fire before record save
      */
     const ON_RECORD_SAVE = 4;
 
     /**
+     * Fire after record save
+     */
+    const ON_AFTER_RECORD_SAVE = 8;
+
+    /**
+     * Fire before record delete
+     */
+    const ON_RECORD_DELETE = 16;
+
+    /**
      * Обробляти, якщо поле встановлене
      */
-    const FIELD_IS_SETTED = 4;
+    const FIELD_IS_SETTED = 1;
 
     /**
      * Обробляти, якщо поле не встановлене
      */
-    const FIELD_NOT_SETTED = 8;
+    const FIELD_NOT_SETTED = 2;
 
     /**
      * Ініціалізує поля
@@ -213,7 +223,7 @@ abstract class BaseRecord implements \IteratorAggregate
      * Підписує на евент моделі
      *
      * @param string   $model     Назва моделі
-     * @param int      $type      Тип евента (ON_FIELD_GET, ON_FIELD_SET, ON_RECORD_SAVE)
+     * @param int      $type      Тип евента (ON_FIELD_GET, ON_FIELD_SET, ON_RECORD_SAVE, ON_AFTER_RECORD_SAVE, ON_RECORD_DELETE)
      * @param callable $callback  Callback ф-ція або метод
      * @param int      $condition Умова вкилкику калбека
      *
@@ -241,6 +251,31 @@ abstract class BaseRecord implements \IteratorAggregate
                 'callback'  => $callback,
                 'condition' => $condition
             );
+        }
+        if ($type & self::ON_AFTER_RECORD_SAVE) {
+            self::$pluginsEvents[$model][self::ON_AFTER_RECORD_SAVE][] = array(
+                'callback'  => $callback,
+                'condition' => $condition
+            );
+        }
+        if ($type & self::ON_RECORD_DELETE) {
+            self::$pluginsEvents[$model][self::ON_RECORD_DELETE][] = array(
+                'callback'  => $callback,
+                'condition' => $condition
+            );
+        }
+    }
+
+    protected function checkEvent($eventId, &$return = false)
+    {
+        if (isset(self::$pluginsEvents[get_class($this)]) && isset(self::$pluginsEvents[get_class($this)][$eventId])) {
+            foreach (self::$pluginsEvents[get_class($this)][$eventId] as $event) {
+                $callback = $event['callback'];
+
+                $params = array($this);
+                $params [] = &$return;
+                call_user_func_array($callback, $params);
+            }
         }
     }
 
@@ -944,9 +979,6 @@ abstract class BaseRecord implements \IteratorAggregate
      */
     public static function extend($className, $classExtensionName)
     {
-        if (!\Framework\Core\Helper\String::isValid($classExtensionName)) {
-            throw new InvalidArgumentException('Invalid argument');
-        }
         if (!$className) {
             throw new Exception('Cannot detect extend class');
         }

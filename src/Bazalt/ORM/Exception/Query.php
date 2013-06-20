@@ -1,8 +1,12 @@
 <?php
 
-use Framework\Core\Logger;
+namespace Bazalt\ORM\Exception;
 
+<<<<<<< HEAD
 class ORM_Exception_Query extends Base
+=======
+class Query extends Base
+>>>>>>> ba627ca420991335921c8965ad59cdde72dfb396
 {
     /**
      * Попереднє повідомлення
@@ -57,9 +61,12 @@ class ORM_Exception_Query extends Base
         $this->query = $query;
         $this->params = $params;
 
+<<<<<<< HEAD
         $query = \Bazalt\ORM\Query::getFullQuery($this->query, $this->params);
         Logger::getInstance()->crit($query, __CLASS__);
 
+=======
+>>>>>>> ba627ca420991335921c8965ad59cdde72dfb396
         $this->code = (int)$exCode;
         $this->message = (string)$message;
     }
