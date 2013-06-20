@@ -553,7 +553,7 @@ abstract class BaseRecord implements \IteratorAggregate
     {
         $table = self::getTable($tableName);
         if ($table == null) {
-            throw new \ORM_Exception_Table('Table not found', $tableName);
+            throw new Exception\Table('Table not found', $tableName);
         }
         $columns = $table->getColumns();
         foreach ($columns as $column) {
@@ -576,7 +576,7 @@ abstract class BaseRecord implements \IteratorAggregate
                 return (int) $this->{$column->name()};
             }
         }
-        throw new \ORM_Exception_Table('Table does not have any autoincrement columns', $this->tableName);
+        throw new Exception\Table('Table does not have any autoincrement columns', $this->tableName);
     }
     
     /**
