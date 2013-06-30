@@ -32,7 +32,7 @@ class Query extends Base
      * @param string       $query  Query that generated the exception
      * @param array        $params Query params
      */
-    public function __construct(PDOException $ex, $query, $params)
+    public function __construct(\PDOException $ex, $query, $params)
     {
         parent::__construct($ex);
 
