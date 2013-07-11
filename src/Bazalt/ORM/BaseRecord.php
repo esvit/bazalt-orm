@@ -544,6 +544,7 @@ abstract class BaseRecord implements \IteratorAggregate
             if ($table == null) {
                 throw new Exception\Table('Table not found', $className);
             }
+            self::$allModels[$className] = $table->tableName;
         }
         return self::$allModels[$className];
     }
