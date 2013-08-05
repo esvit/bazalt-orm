@@ -368,7 +368,7 @@ abstract class Builder extends ORM\Query
      * @param string $condition Вираз
      * @param array|string $params Параметри виразу
      *
-     * @return ORM_Query_Builder
+     * @return \Bazalt\ORM\Query\Builder
      */
     public function where($condition, $params = array())
     {
@@ -388,7 +388,7 @@ abstract class Builder extends ORM\Query
      * @param string $condition Вираз
      * @param string $params    Параметри виразу
      *
-     * @return ORM_Query_Builder 
+     * @return \Bazalt\ORM\Query\Builder
      */
     protected function addWhere($condition, $params = array())
     {
@@ -410,7 +410,7 @@ abstract class Builder extends ORM\Query
      * @param string $condition Вираз
      * @param array|string $params Параметри виразу
      *
-     * @return ORM_Query_Builder|ORM_Query_Select
+     * @return \Bazalt\ORM\Query\Builder|\Bazalt\ORM\Query\Select
      */
     public function andWhere($condition, $params = array())
     {
@@ -429,7 +429,7 @@ abstract class Builder extends ORM\Query
      * @param string $condition Вираз
      * @param array|string $params Параметри виразу
      *
-     * @return ORM_Query_Builder
+     * @return \Bazalt\ORM\Query\Builder
      */
     public function orWhere($condition, $params = array())
     {
@@ -526,9 +526,9 @@ abstract class Builder extends ORM\Query
      * Додає до WHERE AND IN ("вираз")
      *
      * @param string                $field Назва поля
-     * @param ORM_Query_Builder|array $items Запит ORMQuery або масив значень
+     * @param \Bazalt\ORM\Query\Builder|array $items Запит ORMQuery або масив значень
      *
-     * @return ORM_Query_Builder 
+     * @return \Bazalt\ORM\Query\Builder
      */
     public function whereIn($field, $items)
     {
@@ -539,9 +539,9 @@ abstract class Builder extends ORM\Query
      * Додає до WHERE AND IN ("вираз")
      *
      * @param string                $field Назва поля
-     * @param ORM_Query_Builder|array $items Запит ORMQuery або масив значень
+     * @param \Bazalt\ORM\Query\Builder|array $items Запит ORMQuery або масив значень
      *
-     * @return ORM_Query_Builder 
+     * @return \Bazalt\ORM\Query\Builder
      */
     public function andWhereIn($field, $items)
     {

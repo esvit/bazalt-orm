@@ -44,10 +44,10 @@ class Timestampable extends AbstractPlugin
     public function toArray(ORM\Record $record, $itemArray, $options)
     {
         if(array_key_exists('created', $options) && isset($record->{$options['created']})) {
-            $itemArray[$options['created']] = strToTime($record->{$options['created']})  * 1000; // for javascript time
+            $itemArray[$options['created']] = strToTime($record->{$options['created']}) . '000'; // for javascript time
         }
         if(array_key_exists('updated', $options) && isset($record->{$options['updated']})) {
-            $itemArray[$options['updated']] = strToTime($record->{$options['updated']})  * 1000; // for javascript time
+            $itemArray[$options['updated']] = strToTime($record->{$options['updated']})  . '000'; // for javascript time
         }
         return $itemArray;
     }
@@ -87,7 +87,7 @@ class Timestampable extends AbstractPlugin
             return;
         }
         $options = $options[$record->getModelName()];
-        if(array_key_exists('created', $options) && $record->isPKEmpty()) {
+        if(array_key_exists('created', $options) && (empty($record->{$options['created']}) || $record->isPKEmpty())) {
             $record->{$options['created']} = date('Y-m-d H:i:s');
         }
         if(array_key_exists('updated', $options)) {

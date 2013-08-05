@@ -418,8 +418,8 @@ abstract class BaseRecord implements \IteratorAggregate
     /**
      * Повертає масив стовпців ORM_Column
      *
-     * @throws Exception
-     * @return array
+     * @throws \Exception
+     * @return \Bazalt\ORM\Column[]
      */
     public function &getColumns()
     {

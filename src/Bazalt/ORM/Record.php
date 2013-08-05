@@ -117,7 +117,7 @@ abstract class Record extends BaseRecord
         }
 
         if (!$res) {
-            $pKeys = self::getPrimaryKeys(get_class($this));
+            //$pKeys = self::getPrimaryKeys(get_class($this));
             $q = ORM::insert($className, $this);
             $q->noCache();
             $q->exec();
