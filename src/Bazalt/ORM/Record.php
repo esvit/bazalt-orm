@@ -6,7 +6,7 @@ use Bazalt\ORM;
 
 /**
  * ORM_Record
- * Реалізація патерну Active record pattern 
+ * Реалізація патерну Active record pattern
  * @link http://en.wikipedia.org/wiki/Active_record_pattern
  *
  * @category   System
@@ -14,7 +14,7 @@ use Bazalt\ORM;
  * @copyright  2010 Equalteam
  * @license    GPLv3
  * @version    $Revision: 133 $
- */ 
+ */
 abstract class Record extends BaseRecord
 {
     /**
@@ -63,7 +63,7 @@ abstract class Record extends BaseRecord
 
         return $q->fetch($className);
     }
-    
+
     /**
      * Повертає всі обєкти з БД
      *
@@ -104,6 +104,7 @@ abstract class Record extends BaseRecord
         if (!$this->isPKEmpty()) {
             $pKeys = self::getPrimaryKeys(get_class($this));
             $q = ORM::select($className, 'COUNT(*) AS cnt');
+
             foreach ($pKeys as $pKeyName => $pKey) {
                 $q->andWhere($pKeyName . ' = ?', $this->{$pKeyName});
             }
@@ -163,7 +164,7 @@ abstract class Record extends BaseRecord
         $this->checkEvent(self::ON_RECORD_DELETE);
 
         $className = get_class($this);
-        
+
         $field = self::getAutoIncrementColumn($className);
 
         $builder = ORM::delete($className);
@@ -184,10 +185,10 @@ abstract class Record extends BaseRecord
             }
 
             foreach ($pKeys as $pKeyName => $pKey) {
-                $builder->andWhere($pKeyName . ' = ?', $this->$pKeyName);   
+                $builder->andWhere($pKeyName . ' = ?', $this->$pKeyName);
             }
         }
-        
+
         $builder->exec();
         return $builder->rowCount();
     }

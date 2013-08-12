@@ -227,8 +227,13 @@ abstract class Builder extends ORM\Query
                 $this->models []= $names[0];
                 try {
                     $tableName = ORM\BaseRecord::getTableName($names[0]);
+
                     $connection = ORM\BaseRecord::getSQLConnectionNameByModel($names[0]);
-                    $this->connection(ORM\Connection\Manager::getConnection($connection));
+                    try {
+                        $this->connection(ORM\Connection\Manager::getConnection($connection));
+                    } catch (\Exception $e) {
+                        throw new \Exception('Invalid connection for model "' . $names[0] . '"', 0, $e);
+                    }
 
                     if (empty($tableName)) {
                         throw new \Exception('Invalid model "' . $names[0] . '"');

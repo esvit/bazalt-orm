@@ -29,6 +29,8 @@ $dbParams = array(
 $connectionString = new \Bazalt\ORM\Adapter\Mysql($dbParams);
 \Bazalt\ORM\Connection\Manager::add($connectionString, 'test');
 
+new Plugin\Model\FilmText();
+
 // Autoloading is not available if using PHP in CLI interactive mode.
 new Model\Actor();
 new Model\Address();

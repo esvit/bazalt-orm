@@ -344,7 +344,7 @@ class Query
         }
         $resObj = new $class();
 
-        if ($resObj instanceof Bazalt\ORM\BaseRecord) {
+        if ($resObj instanceof \Bazalt\ORM\BaseRecord) {
             $resObj->fromArray($data);
         } else {
             foreach ($data as $field => $value) {

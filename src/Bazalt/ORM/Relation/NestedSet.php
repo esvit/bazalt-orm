@@ -675,7 +675,7 @@ class NestedSet extends AbstractRelation implements IRelationMany
         $left = $elem->{self::LEFT_FIELDNAME};
         $right = $elem->{self::RIGHT_FIELDNAME};
         if($left <= $this->baseObject->{self::LEFT_FIELDNAME} || $right >= $this->baseObject->{self::RIGHT_FIELDNAME}) {
-            throw new Exception("Invlid parent object ($left,$right)");
+            throw new \Exception("Invlid parent object ($left,$right)");
         }
 
         if ($onlyParent) {
@@ -721,18 +721,18 @@ class NestedSet extends AbstractRelation implements IRelationMany
         $left = $this->baseObject->{self::LEFT_FIELDNAME};
         $right = $this->baseObject->{self::RIGHT_FIELDNAME};
 
-        $count = $right - $left + 1;
+        $count = $right - $left - 1;
         $q = ORM::delete($this->name)
                 ->where(self::LEFT_FIELDNAME . ' > ?', $left)
                 ->andWhere(self::RIGHT_FIELDNAME . ' < ?', $right)
-                ->andWhere($this->column . ' = ?', $this->baseObject->{$this->refColumn});
+                ->andWhere($this->column . ' = ?', $this->baseObject->{$this->column});
         $q->exec();
 
         $q = ORM::update($this->name)
                 ->set('lft = IF(lft > ' . $left . ', lft - ' . $count . ', lft)')
                 ->set('rgt = rgt - ' . $count)
                 ->where('rgt >= ?', $right)
-                ->andWhere($this->column . ' = ?', $this->baseObject->{$this->refColumn});
+                ->andWhere($this->column . ' = ?', $this->baseObject->{$this->column});
         $q->exec();
 
         $this->baseObject->{self::RIGHT_FIELDNAME} = $left + 1;
