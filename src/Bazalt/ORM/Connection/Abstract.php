@@ -201,7 +201,7 @@ abstract class ORM_Connection_Abstract
             if (count($params) > 0) {
                 $this->bindParams($res, $params);
             }
-            if (STAGE == DEVELOPMENT_STAGE) {
+            if (DEVELOPMENT_STAGE) {
                 $this->logger->info(ORM\Query::getFullQuery($query, $params));
             }
             $res->execute();
