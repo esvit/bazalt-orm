@@ -129,15 +129,15 @@ class Many2Many extends AbstractRelation implements IRelationMany
      * @param Record $item   Об'єкт, який потрібно додати
      * @param array      $params Масив додаткових значень, які будуть додані в реферальну таблицю
      *
-     * @throws Exception
-     * @return void
+     * @throws \Exception
+     * @return Record
      */
     public function add(Record $item, $params = array())
     {
         $this->checkType($item);
 
         if ($this->baseObject->isPKEmpty()) {
-            throw new Exception('Save item first "' . get_class($this->baseObject) . '"');
+            throw new \Exception('Save item first "' . get_class($this->baseObject) . '"');
         }
         $this->dispatcher()->dispatch('OnAdd', new \Symfony\Component\EventDispatcher\Event($this->baseObject, [$item]));
 
@@ -146,8 +146,24 @@ class Many2Many extends AbstractRelation implements IRelationMany
         }
 
         $refObj = new $this->refTable();
-        $refObj->{$this->column} = $this->baseObject->getAutoIncrementValue();
-        $refObj->{$this->refColumn} = $item->getAutoIncrementValue();
+        $keys = Record::getPrimaryKeys(get_class($this->baseObject));
+        if (!count($keys)) {
+            throw new \Exception('Can\'t find primary keys in "' . get_class($this->baseObject) . '"');
+        }
+        /** @var \Bazalt\ORM\Column $column */
+        $column = current($keys);
+
+        $refObj->{$this->column} = $this->baseObject->{$column->name()};
+
+        //
+        $keys = Record::getPrimaryKeys(get_class($item));
+        if (!count($keys)) {
+            throw new \Exception('Can\'t find primary keys in "' . get_class($item) . '"');
+        }
+        /** @var \Bazalt\ORM\Column $column */
+        $column = current($keys);
+
+        $refObj->{$this->refColumn} = $item->{$column->name()};
         foreach ($params as $key => $param) {
             $refObj->{$key} = $param;
         }
