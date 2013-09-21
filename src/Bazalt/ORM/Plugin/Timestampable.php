@@ -88,7 +88,8 @@ class Timestampable extends AbstractPlugin
         }
         $options = $options[$record->getModelName()];
 
-        if(array_key_exists('created', $options) && (empty($record->{$options['created']}) || $record->isPKEmpty())) {
+        $field = $record->getField($options['created']);
+        if(array_key_exists('created', $options) && (empty($field) || $record->isPKEmpty())) {
             $record->{$options['created']} = date('Y-m-d H:i:s');
         }
         if(array_key_exists('updated', $options)) {
