@@ -14,7 +14,7 @@ class Query
     /**
      * Поточне підключення
      *
-     * @var ORM_Connection_Abstract
+     * @var \Bazalt\ORM\Connection\Abstract
      */
     protected $connection = null;
 
@@ -255,7 +255,7 @@ class Query
     public function fetchAll($baseClass = 'stdClass')
     {
         if (empty($baseClass)) {
-            throw new InvalidArgumentException('baseClass cannot be empty');
+            throw new \InvalidArgumentException('baseClass cannot be empty');
         }
         $cacheKey = $this->getCacheKey();
         $cached = ($this->cached) ? ORM::cache()->get($cacheKey) : false;

@@ -23,7 +23,7 @@ abstract class Record extends BaseRecord
      * @param integer $id    Значення первинного ключа моделі
      * @param string  $class = null Назва моделі
      *
-     * @throws \ORM_Exception_Table
+     * @throws \Bazalt\ORM\Exception\Table
      * @throws \InvalidArgumentException
      * @return Record
      */
@@ -33,7 +33,7 @@ abstract class Record extends BaseRecord
             throw new \InvalidArgumentException();
         }
 
-        $className = is_null($class) ? getCalledClass() : $class;
+        $className = is_null($class) ? get_called_class() : $class;
 
         $field = self::getAutoIncrementColumn($className);
         if ($field) {
@@ -47,7 +47,7 @@ abstract class Record extends BaseRecord
 
         $keys = self::getPrimaryKeys($className);
         if (count($keys) == 0) {
-            throw new \ORM_Exception_Table('This model havent primary keys', $class);
+            throw new \Bazalt\ORM\Exception\Table('This model havent primary keys', $class);
         }
         if (!is_array($id) && count($keys) == 1) {
             $akeys = array_keys($keys);
@@ -74,7 +74,7 @@ abstract class Record extends BaseRecord
      */
     public static function getAllRecords($limit = null, $class = null)
     {
-        $className = is_null($class) ? getCalledClass() : $class;
+        $className = is_null($class) ? get_called_class() : $class;
 
         $q = ORM::select($className . ' f');
         if (!is_null($limit)) {

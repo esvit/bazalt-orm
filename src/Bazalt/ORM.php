@@ -145,8 +145,8 @@ class ORM
     /**
      * Обєднує результати двох запитів
      *
-     * @param \ORM_Query_Builder $query1 Запит для обєднання
-     * @param \ORM_Query_Builder $query2 Запит для обєднання
+     * @param \Bazalt\ORM\Query\Builder $query1 Запит для обєднання
+     * @param \Bazalt\ORM\Query\Builder $query2 Запит для обєднання
      * @param string            $type   Тип обднання
      *
      * @return ORM\Query\Union
