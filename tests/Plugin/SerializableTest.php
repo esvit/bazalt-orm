@@ -30,7 +30,7 @@ class SerializableTest extends \tests\BaseCase
         $this->assertEquals(array('test' => 1), $this->model->description);
 
         $q = new \Bazalt\ORM\Query('SELECT description FROM film_text WHERE film_id = :id',
-            ['id' => $this->model->film_id]);
+            array('id' => $this->model->film_id));
 
         $q->connection(\Bazalt\ORM\Connection\Manager::getConnection('test'));
         $obj = $q->fetch();
