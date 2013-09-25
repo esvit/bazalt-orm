@@ -79,7 +79,7 @@ abstract class AbstractRelation
     /**
      * Генерує запит для вибірки звязаних обєктів
      *
-     * @return SelectQueryBuilder
+     * @return \Bazalt\ORM\Query\Select
      */
     abstract public function getQuery();
 

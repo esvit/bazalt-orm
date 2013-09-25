@@ -44,24 +44,22 @@ class Union extends Builder
     /**
      * Запит для об'єднання
      *
-     * @var ORM_Query_Builder
+     * @var \Bazalt\ORM\Query\Builder
      */
     protected $query1 = null;
 
     /**
      * Запит для об'єднання
      *
-     * @var ORM_Query_Builder
+     * @var \Bazalt\ORM\Query\Builder
      */
     protected $query2 = null;
 
     /**
      * Construct
      *
-     * @param ORM_Query_Builder $query1 Запит для об'єднання
-     * @param ORM_Query_Builder $query2 Запит для об'єднання
-     *
-     * @return this
+     * @param \Bazalt\ORM\Query\Builder $query1 Запит для об'єднання
+     * @param \Bazalt\ORM\Query\Builder $query2 Запит для об'єднання
      */
     public function __construct(Builder $query1, Builder $query2)
     {
@@ -87,7 +85,7 @@ class Union extends Builder
     /**
      * Встановлює тип запиту UNION ALL
      *
-     * @return this
+     * @return Union
      */
     public function all()
     {
@@ -98,7 +96,7 @@ class Union extends Builder
     /**
      * Встановлює тип запиту UNION DISTINCT
      *
-     * @return this
+     * @return Union
      */
     public function distinct()
     {
@@ -111,7 +109,7 @@ class Union extends Builder
      *
      * @param array $fields Масив полів, які ввійдуть у результат вибірки
      *
-     * @return this
+     * @return Union
      */
     public function select($fields)
     {
@@ -156,11 +154,11 @@ class Union extends Builder
      * @param integer $from  Початкове значення ліміту
      * @param integer $count Кількість записів в результаті
      *
-     * @return this
+     * @return Union
      */
     public function limit($from, $count = null)
     {
-        if (!Number::isValid($from) || (!is_null($count) && !Number::isValid($count))) {
+        if (!is_numeric($from) || (!is_null($count) && !is_numeric($count))) {
             throw new InvalidArgumentException();
         }
         $this->limitFrom = $from;
@@ -173,7 +171,7 @@ class Union extends Builder
      *
      * @param string $fields Список полів для ORDER BY
      *
-     * @return this
+     * @return Union
      */
     public function orderBy($fields)
     {

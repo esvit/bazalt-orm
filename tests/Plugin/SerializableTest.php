@@ -24,10 +24,10 @@ class SerializableTest extends \tests\BaseCase
 
         $this->model->film_id = 1;
         $this->model->title = 'test';
-        $this->model->description = ['test' => 1];
+        $this->model->description = array('test' => 1);
         $this->model->save();
 
-        $this->assertEquals(['test' => 1], $this->model->description);
+        $this->assertEquals(array('test' => 1), $this->model->description);
 
         $q = new \Bazalt\ORM\Query('SELECT description FROM film_text WHERE film_id = :id',
             ['id' => $this->model->film_id]);

@@ -32,7 +32,7 @@ class Many2Many extends AbstractRelation implements IRelationMany
      *
      * @param int $id ід
      *
-     * @return Record
+     * @return \Bazalt\ORM\Record
      */
     public function getById($id)
     {
@@ -66,7 +66,7 @@ class Many2Many extends AbstractRelation implements IRelationMany
     /**
      * Генерує запит для вибірки звязаних обєктів
      *
-     * @return SelectQueryBuilder
+     * @return \Bazalt\ORM\Query\Select
      */
     public function getQuery()
     {
@@ -176,7 +176,7 @@ class Many2Many extends AbstractRelation implements IRelationMany
      *
      * @param Record $item Об'єкт, який потрібно видалити
      *
-     * @return void
+     * @return bool
      */
     public function remove(Record $item)
     {

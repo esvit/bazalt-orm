@@ -76,7 +76,7 @@ class Select extends Builder
      *
      * @param array $fields Масив полів, які ввійдуть у результат вибірки
      *
-     * @return ORM_Query_Select
+     * @return \Bazalt\ORM\Query\Select
      */
     public function select($fields)
     {
@@ -137,7 +137,7 @@ class Select extends Builder
      *
      * @param string $fields Список полів для ORDER BY
      *
-     * @return ORM_Query_Select
+     * @return \Bazalt\ORM\Query\Select
      */
     public function orderBy($fields)
     {
@@ -150,7 +150,7 @@ class Select extends Builder
      *
      * @param string $fields Список полів для ORDER BY
      *
-     * @return ORM_Query_Select
+     * @return \Bazalt\ORM\Query\Select
      */
     public function addOrderBy($fields)
     {
@@ -163,7 +163,7 @@ class Select extends Builder
      *
      * @param string $fields Список полів для GROUP BY
      *
-     * @return ORM_Query_Select
+     * @return \Bazalt\ORM\Query\Select
      */
     public function groupBy($fields = null)
     {
@@ -183,7 +183,7 @@ class Select extends Builder
      *
      * @param string $having Вираз для HAVING
      *
-     * @return ORM_Query_Select
+     * @return \Bazalt\ORM\Query\Select
      */
     public function having($having = null)
     {
@@ -200,7 +200,7 @@ class Select extends Builder
      * @param int $pageNum     Номер сторінки
      * @param int $countOnPage Кількість запитів на сторінку
      *
-     * @return ORM_Query_Select
+     * @return \Bazalt\ORM\Query\Select
      */
     public function page($pageNum = 1, $countOnPage = 10)
     {

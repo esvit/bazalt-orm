@@ -77,7 +77,7 @@ class Update extends Builder
      *
      * @param mixed    $autoClearCache Значення
      *
-     * @return ORM_Query_Update 
+     * @return \Bazalt\ORM\Query\Update
      */
     public function autoClearCache($autoClearCache = null)
     {
@@ -94,11 +94,11 @@ class Update extends Builder
      * @param integer $from  Початкове значення ліміту
      * @param integer $count Кількість записів в результаті
      *
-     * @return this
+     * @return Update
      */
     public function limit($from, $count = null)
     {
-        if (!\Framework\Core\Helper\Number::isValid($from) || (!is_null($count) && !\Framework\Core\Helper\Number::isValid($count))) {
+        if (!is_numeric($from) || (!is_null($count) && !is_numeric($count))) {
             throw new \InvalidArgumentException();
         }
         $this->limitFrom = $from;
@@ -111,7 +111,7 @@ class Update extends Builder
      *
      * @param string $fields Список полів для ORDER BY
      *
-     * @return this
+     * @return Update
      */
     public function orderBy($fields)
     {
