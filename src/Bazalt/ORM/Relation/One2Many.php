@@ -47,7 +47,7 @@ class One2Many extends AbstractRelation implements IRelationMany
      *
      * @param int $id ід
      *
-     * @return Record
+     * @return \Bazalt\ORM\Record
      */
     public function getById($id)
     {
@@ -55,7 +55,7 @@ class One2Many extends AbstractRelation implements IRelationMany
         if(!$q) {
             return null;
         }
-        $column = Record::getAutoIncrementColumn($this->name);
+        $column = \Bazalt\ORM\Record::getAutoIncrementColumn($this->name);
         $q->andWhere('ft.'.$column->name().' = ?', (int)$id);
         return $q->fetch($this->name);
     }
@@ -65,7 +65,7 @@ class One2Many extends AbstractRelation implements IRelationMany
      *
      * @param array $ids Масив ідентифікаторів
      *
-     * @return Record
+     * @return \Bazalt\ORM\Record
      */
     public function getByIds($ids)
     {
@@ -81,7 +81,7 @@ class One2Many extends AbstractRelation implements IRelationMany
     /**
      * Генерує запит для вибірки звязаних обєктів
      *
-     * @return SelectQueryBuilder
+     * @return \Bazalt\ORM\Query\Select
      */
     public function getQuery()
     {
@@ -101,7 +101,7 @@ class One2Many extends AbstractRelation implements IRelationMany
     /**
      * Генерує Sql скрипт для звязку @deprecated
      *
-     * @param Record $model Модель до якої йде звязок
+     * @param \Bazalt\ORM\Record $model Модель до якої йде звязок
      * 
      * @return string
      */
@@ -122,7 +122,7 @@ class One2Many extends AbstractRelation implements IRelationMany
     /**
      * Створює зв'язок між поточним обєктом та обєктом $item
      *
-     * @param Record $item Об'єкт, який потрібно додати
+     * @param \Bazalt\ORM\Record $item Об'єкт, який потрібно додати
      *
      * @return void
      */
@@ -130,7 +130,7 @@ class One2Many extends AbstractRelation implements IRelationMany
     {
         $this->checkType($item);
 
-        $this->dispatcher()->dispatch('OnAdd', new \Symfony\Component\EventDispatcher\Event($this->baseObject, [$item]));
+        $this->dispatcher()->dispatch('OnAdd', new \Symfony\Component\EventDispatcher\Event($this->baseObject, array($item)));
         
         $item->{$this->refColumn} = $this->baseObject->{$this->column};
         $item->save();
@@ -152,7 +152,7 @@ class One2Many extends AbstractRelation implements IRelationMany
     /**
      * Видаляє зв'язок між поточним обєктом та обєктом $item
      *
-     * @param Record $item Об'єкт, який потрібно видалити
+     * @param \Bazalt\ORM\Record $item Об'єкт, який потрібно видалити
      *
      * @return void
      */
@@ -164,7 +164,7 @@ class One2Many extends AbstractRelation implements IRelationMany
     /**
      * Перевіряє чи існує зв'язок між поточним обєктом та обєктом $item
      *
-     * @param Record $item Об'єкт, який потрібно перевірити     
+     * @param \Bazalt\ORM\Record $item Об'єкт, який потрібно перевірити
      *
      * @return bool
      */ 

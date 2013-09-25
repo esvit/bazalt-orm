@@ -14,7 +14,7 @@ class Query
     /**
      * Поточне підключення
      *
-     * @var \Bazalt\ORM\Connection\Abstract
+     * @var \Bazalt\ORM\Connection\AbstractConnection
      */
     protected $connection = null;
 
@@ -83,7 +83,7 @@ class Query
      *
      * @param Connection\AbstractConnection $connection Підключення до БД
      *
-     * @return void
+     * @return Connection\AbstractConnection|Query
      */
     public function connection(Connection\AbstractConnection $connection = null)
     {
@@ -120,13 +120,13 @@ class Query
     /**
      * Виконує запит та повертає обєкт PDO
      *
-     * @return PDO 
+     * @return \PDO
      */
     protected function execute()
     {
         //$profile = Logger::start(__CLASS__, __FUNCTION__);
         if ($this->connection == null) {
-            $this->connection = \ORM_Connection_Manager::getConnection();
+            $this->connection = Connection\Manager::getConnection();
         }
         $res = $this->connection->query($this->query, $this->getQueryParams());
         $this->error = $this->connection->getErrorInfo();

@@ -200,15 +200,15 @@ abstract class BaseRecord implements \IteratorAggregate
      * @param string $modelName Назва моделі
      * @param string $engine    Engine (InnoDB, MyISAM)
      *
-     * @throws ORM_Exception_Model
+     * @throws Exception\Model
      */
     public function __construct($name, $modelName, $engine = null)
     {
         if (!$name) {
-            throw new \ORM_Exception_Model('Table name cannot be empty', $this);
+            throw new Exception\Model('Table name cannot be empty', $this);
         }
         if (!$modelName) {
-            throw new \ORM_Exception_Model('Model name cant be empty "' . $name . '"', $this);
+            throw new Exception\Model('Model name cant be empty "' . $name . '"', $this);
         }
         $this->engine = $engine;
 

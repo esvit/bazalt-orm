@@ -150,7 +150,7 @@ class Collection
         $this->count = $this->query->rowCount();
         $start = ($curPage-1) * $this->countPerPage;
         if ($this->count > 0 && $start >= $this->count) {
-            throw new Exception_Collection('Invalid page number');
+            throw new \Bazalt\ORM\Exception\Collection('Invalid page number');
         }
         $q = clone $this->query;
         $q->limit($start, $this->countPerPage);
@@ -170,7 +170,7 @@ class Collection
         $q->from('(SELECT @num := 0) AS rowNumber')
           ->select('*, @num := @num + 1 AS number');
 
-        return ORM::select()->from($q);
+        return \Bazalt\ORM::select()->from($q);
     }
 
     /**

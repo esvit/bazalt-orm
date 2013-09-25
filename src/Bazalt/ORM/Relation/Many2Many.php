@@ -139,7 +139,7 @@ class Many2Many extends AbstractRelation implements IRelationMany
         if ($this->baseObject->isPKEmpty()) {
             throw new \Exception('Save item first "' . get_class($this->baseObject) . '"');
         }
-        $this->dispatcher()->dispatch('OnAdd', new \Symfony\Component\EventDispatcher\Event($this->baseObject, [$item]));
+        $this->dispatcher()->dispatch('OnAdd', new \Symfony\Component\EventDispatcher\Event($this->baseObject, array($item)));
 
         if ($item->isPKEmpty()) {
             $item->save();
@@ -182,7 +182,7 @@ class Many2Many extends AbstractRelation implements IRelationMany
     {
         $this->checkType($item);
 
-        $this->dispatcher()->dispatch('OnRemove', new \Symfony\Component\EventDispatcher\Event($this->baseObject, [$item]));
+        $this->dispatcher()->dispatch('OnRemove', new \Symfony\Component\EventDispatcher\Event($this->baseObject, array($item)));
 
         
         $q = ORM::select($this->refTable)
