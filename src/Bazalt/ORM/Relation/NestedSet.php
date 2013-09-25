@@ -841,6 +841,7 @@ class NestedSet extends AbstractRelation implements IRelationMany
                 ->andWhere($this->column . ' = ?', $this->baseObject->{$this->refColumn})
                 ->orderBy('ft.' . self::LEFT_FIELDNAME . ' ASC');
 
+        $this->applyAddParams($q);
         return $q;
     }
 

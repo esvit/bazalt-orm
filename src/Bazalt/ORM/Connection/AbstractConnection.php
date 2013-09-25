@@ -219,7 +219,7 @@ abstract class AbstractConnection
             }
             $res->execute();
             //Logger::stop($profile);
-        } catch (PDOException $ex) {
+        } catch (\PDOException $ex) {
             throw ORM\Exception\Base::getException($ex, $query, $params);
         }
         $this->queryCount++;
