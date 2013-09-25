@@ -95,7 +95,7 @@ class Join extends Builder
             }
         } else {
             // trigger_error('asdas');
-            throw new InvalidArgumentException();
+            throw new \InvalidArgumentException();
         }
 
         $this->from = $tableName;
@@ -121,7 +121,7 @@ class Join extends Builder
     {
         $table = \Bazalt\ORM\Record::getTableName($this->from);
         if (empty($table)) {
-            throw new Exception('Invalid model "' . $this->from . '"');
+            throw new \Exception('Invalid model "' . $this->from . '"');
         }
         return $table;
     }

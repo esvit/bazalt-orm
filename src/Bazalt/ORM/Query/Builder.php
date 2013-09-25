@@ -137,7 +137,7 @@ abstract class Builder extends ORM\Query
      * @param string $name       Назва джойна
      * @param array  $conditions Масив умов
      *
-     * @return ORM_Query_Builder
+     * @return \Bazalt\ORM\Query\Builder
      */
     public function leftJoin($name, $conditions = array())
     {
@@ -151,7 +151,7 @@ abstract class Builder extends ORM\Query
      * @param string $name       Назва джойна
      * @param array  $conditions Масив умов
      *
-     * @return ORM_Query_Builder
+     * @return \Bazalt\ORM\Query\Builder
      */
     public function innerJoin($name, $conditions = array())
     {
@@ -165,7 +165,7 @@ abstract class Builder extends ORM\Query
      * @param string $name       Назва джойна
      * @param array  $conditions Масив умов
      *
-     * @return this
+     * @return Builder
      */
     public function rightJoin($name, $conditions = array())
     {
@@ -179,7 +179,7 @@ abstract class Builder extends ORM\Query
      * @param string $name       Назва джойна
      * @param array  $conditions Масив умов
      *
-     * @return this
+     * @return Builder
      */
     public function outerJoin($name, $conditions = array())
     {
@@ -202,8 +202,8 @@ abstract class Builder extends ORM\Query
      *
      * @param string $name Назва таблиці
      *
-     * @throws Exception
-     * @return ORM_Query_Builder
+     * @throws \Exception
+     * @return Builder
      */
     public function from($name)
     {
@@ -259,7 +259,7 @@ abstract class Builder extends ORM\Query
                     $this->aliases[] = $alias;
                     $this->from[$alias] = $tableName;
                 }
-            } else if ($class instanceof Bazalt\ORM\Builder) {
+            } else if ($class instanceof \Bazalt\ORM\Query\Builder) {
                 $sql = $class->buildSQL();
                 $alias = $this->generateAlias($sql);
 
@@ -305,10 +305,10 @@ abstract class Builder extends ORM\Query
      * Встановлює об'єкт моделі (тобто всі її поля) або пару 'назва стовпця' => 'значення'
      * для INSERT або UPDATE запиту
      *
-     * @param ORM_Record|string $o     Об'єкт моделі або назва поля
+     * @param \Bazalt\ORM\Record|string $o     Об'єкт моделі або назва поля
      * @param mixed            $param Значення
      *
-     * @return ORM_Query_Builder 
+     * @return \Bazalt\ORM\Query\Builder
      */
     public function set($o, $param = null)
     {
@@ -398,7 +398,6 @@ abstract class Builder extends ORM\Query
     protected function addWhere($condition, $params = array())
     {
         $conditions = explode(' ', $condition);
-        $conditions[0] = $conditions[0];
 
         $this->where .= ' (' . implode(' ', $conditions) . ')';
         if (is_array($params)) {
@@ -450,7 +449,7 @@ abstract class Builder extends ORM\Query
     /**
      * Додає до WHERE гурпу умов ( ... ) через AND
      *
-     * @return ORM_Query_Builder 
+     * @return \Bazalt\ORM\Query\Builder
      */
     public function andWhereGroup()
     {
@@ -466,7 +465,7 @@ abstract class Builder extends ORM\Query
     /**
      * Додає до WHERE гурпу умов ( ... ) через OR
      *
-     * @return ORM_Query_Builder 
+     * @return \Bazalt\ORM\Query\Builder
      */
     public function orWhereGroup()
     {
@@ -483,7 +482,7 @@ abstract class Builder extends ORM\Query
     /**
      * Закриває відкриту раніше групу умов, доданих через andWhereGroup або orWhereGroup
      *
-     * @return ORM_Query_Builder 
+     * @return \Bazalt\ORM\Query\Builder
      */
     public function endWhereGroup()
     {
@@ -499,12 +498,12 @@ abstract class Builder extends ORM\Query
      * Додає до WHERE IN ("вираз")
      *
      * @param string                  $field Назва поля
-     * @param ORM_Query_Builder|array $items Запит ORMQuery або масив значень
+     * @param \Bazalt\ORM\Query\Builder|array $items Запит ORMQuery або масив значень
      * @param string                  $oper  Оператор через який буде додано вираз (AND чи OR)
      * @param bool                    $not   Флаг, якщо встановлено true, то додає NOT перед виразом, по замовчуванню false
      *
-     * @throws Exception
-     * @return ORM_Query_Builder
+     * @throws \Exception
+     * @return \Bazalt\ORM\Query\Builder
      */
     protected function addWhereIn($field, $items, $oper = 'AND', $not = false)
     {
@@ -557,9 +556,9 @@ abstract class Builder extends ORM\Query
      * Додає до WHERE OR IN ("вираз")
      *
      * @param string                $field Назва поля
-     * @param ORM_Query_Builder|array $items Запит ORMQuery або масив значень
+     * @param \Bazalt\ORM\Query\Builder|array $items Запит ORMQuery або масив значень
      *
-     * @return ORM_Query_Builder 
+     * @return \Bazalt\ORM\Query\Builder
      */
     public function orWhereIn($field, $items)
     {
@@ -570,9 +569,9 @@ abstract class Builder extends ORM\Query
      * Додає до WHERE AND NOT IN ("вираз")
      *
      * @param string                $field Назва поля
-     * @param ORM_Query_Builder|array $items Запит ORMQuery або масив значень
+     * @param \Bazalt\ORM\Query\Builder|array $items Запит ORMQuery або масив значень
      *
-     * @return ORM_Query_Builder 
+     * @return \Bazalt\ORM\Query\Builder
      */
     public function notWhereIn($field, $items)
     {
@@ -583,9 +582,9 @@ abstract class Builder extends ORM\Query
      * Додає до WHERE AND NOT IN ("вираз")
      *
      * @param string                $field Назва поля
-     * @param ORM_Query_Builder|array $items Запит ORMQuery або масив значень
+     * @param \Bazalt\ORM\Query\Builder|array $items Запит ORMQuery або масив значень
      *
-     * @return ORM_Query_Builder 
+     * @return \Bazalt\ORM\Query\Builder
      */
     public function andNotWhereIn($field, $items)
     {
@@ -596,9 +595,9 @@ abstract class Builder extends ORM\Query
      * Додає до WHERE OR NOT IN ("вираз")
      *
      * @param string                $field Назва поля
-     * @param ORM_Query_Builder|array $items Запит ORMQuery або масив значень
+     * @param \Bazalt\ORM\Query\Builder|array $items Запит ORMQuery або масив значень
      *
-     * @return ORM_Query_Builder 
+     * @return \Bazalt\ORM\Query\Builder
      */
     public function orNotWhereIn($field, $items)
     {
@@ -621,7 +620,7 @@ abstract class Builder extends ORM\Query
     /**
      * Виконує запит та повертає обєкт PDO
      *
-     * @return PDO 
+     * @return \PDO
      */
     protected function execute()
     {

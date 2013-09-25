@@ -15,7 +15,7 @@ namespace Bazalt\ORM\Query;
 use Bazalt\ORM as ORM;
 
 /**
- * ORM_Query_Insert
+ * Insert
  * Генерує INSERT запит до БД
  *
  * @category   System
@@ -51,7 +51,7 @@ class Insert extends Builder
     /**
      * Генерує запит щоб він оновлював дані на сервері, якщо такий запис вже існує
      *
-     * @return ORMQueryBuilder
+     * @return \Bazalt\ORM\Query\Builder
      */
     public function onDupicateUpdate()
     {
@@ -77,7 +77,7 @@ class Insert extends Builder
     protected function getFrom()
     {
         if ($this->from == 'DUAL' || !$this->from) {
-            throw new ORM\Exception\Insert('INTO parameter not set');
+            throw new ORM\Exception\Insert('INTO parameter not set', $this);
         }
         return parent::getFrom();
     }
