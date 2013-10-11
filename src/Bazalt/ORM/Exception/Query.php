@@ -85,4 +85,19 @@ class Query extends Base
 
         return $details;
     }
+
+    public static function whoopsDataTableCallback()
+    {
+        return function() {
+            list($query, $params) = \Bazalt\ORM\Connection\Manager::getConnection()->getLastQuery();
+
+            $fullQuery =  \Bazalt\ORM\Query::getFullQuery($query, $params);
+            $output = array(
+                'Full' => $fullQuery,
+                'Query' => $query,
+                'Params' => print_r($params, true)
+            );
+            return $output;
+        };
+    }
 }

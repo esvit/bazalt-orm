@@ -212,7 +212,7 @@ class NestedSet extends AbstractRelation implements IRelationMany
 
         if (ORM_NESTEDSET_ANALYZE) {
             if (!$this->analyze()) {
-                $this->getLogger()->err('Nested set has errors. Rollback');
+                $this->getLogger()->error('Nested set has errors. Rollback');
                 ORM::rollBack();
                 return false;
             }
@@ -498,15 +498,15 @@ class NestedSet extends AbstractRelation implements IRelationMany
 
         $nodes = $q->fetchAll();
         if (!count($nodes)) {
-            $this->getLogger()->err('No root node');
+            $this->getLogger()->error('No root node');
             self::$error[] = 'No root node';
             return false;
         } else if (count($nodes) > 1) {
-            $this->getLogger()->err('More than one root node');
+            $this->getLogger()->error('More than one root node');
             self::$error[] = 'More than one root node';
             return false;
         } else if ($nodes[0]->{self::LEFT_FIELDNAME} != 1) {
-            $this->getLogger()->err('Root node\'s left index is not 1');
+            $this->getLogger()->error('Root node\'s left index is not 1');
             self::$error[] = 'Root node\'s left index is not 1';
             return false;
         }

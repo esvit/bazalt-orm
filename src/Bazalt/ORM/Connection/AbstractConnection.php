@@ -66,7 +66,7 @@ abstract class AbstractConnection
     /**
      * Constructor
      *
-     * @param ORM_Adapter_Abstract $adapter Connection adapter
+     * @param \Bazalt\ORM\Adapter\AbstractAdapter $adapter Connection adapter
      *
      * @see ORM_Adapter_Abstract
      */
@@ -207,7 +207,7 @@ abstract class AbstractConnection
      */
     public function query($query, $params = array())
     {
-        $this->lastQuery = $query;
+        $this->lastQuery = array($query, $params);
         try {
             //$profile = Logger::start(__CLASS__, $query);
             $res = $this->_getPDO()->prepare($query);
@@ -269,5 +269,10 @@ abstract class AbstractConnection
     public function getConnectionAdapter()
     {
         return $this->connectionAdapter;
+    }
+
+    public function getLastQuery()
+    {
+        return $this->lastQuery;
     }
 }

@@ -76,6 +76,13 @@ abstract class AbstractRelation
         $this->additionalParams = $additionalParams;
     }
 
+    public function getLogger()
+    {
+        $logger = new \Analog\Logger();
+        $logger->handler(\Analog\Handler\Stderr::init());
+        return $logger;
+    }
+
     /**
      * Генерує запит для вибірки звязаних обєктів
      *
