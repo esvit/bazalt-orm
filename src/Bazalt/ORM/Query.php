@@ -194,11 +194,12 @@ class Query
         $values = array();
        
         # build a regular expression for each parameter
-        foreach ($params as $key => $value)
-        {
-            $keys[]   = is_string($key) ? '/:' . $key . '/' : '/[?]/';
+        if (is_array($params)) {
+            foreach ($params as $key => $value) {
+                $keys[]   = is_string($key) ? '/:' . $key . '/' : '/[?]/';
 
-            $values[] = is_integer($value) ? intval($value) : '"' . addslashes($value) . '"';
+                $values[] = is_integer($value) ? intval($value) : '"' . addslashes($value) . '"';
+            }
         }
        
         $query = preg_replace($keys, $values, $query, 1, $count);
