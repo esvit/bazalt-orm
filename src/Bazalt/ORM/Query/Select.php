@@ -157,6 +157,17 @@ class Select extends Builder
     }
 
     /**
+     * Очищає ORDER BY
+     *
+     * @return \Bazalt\ORM\Query\Select
+     */
+    public function clearOrderBy()
+    {
+        $this->orderBy = array();
+        return $this;
+    }
+
+    /**
      * Додає GROUP BY параметри до запиту
      *
      * @param string $fields Список полів для GROUP BY

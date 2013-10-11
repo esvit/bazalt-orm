@@ -7,7 +7,7 @@ class Collection
     /**
      * Поточний запит
      *
-     * @var Query
+     * @var Query\Builder
      */
     protected $query = null;
 
