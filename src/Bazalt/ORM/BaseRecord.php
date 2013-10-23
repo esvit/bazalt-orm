@@ -156,13 +156,13 @@ abstract class BaseRecord implements \IteratorAggregate
      * @var array
      */     
     protected $values = array();
-    
+
     /**
      * Значення, які були завантажені з БД
      *
      * @var array
-     */     
-    protected $oldValues = array();
+     */
+    //protected $oldValues = array();
     
     /**
      * Флаг о заполнении поля
@@ -403,15 +403,15 @@ abstract class BaseRecord implements \IteratorAggregate
      */
     public function setField($field, $value, $isCreate = false)
     {
-        if ($isCreate) {
+        //if ($isCreate) {
             $this->values[$field] = $value;
-            $this->oldValues[$field] = $value;
+        /*$this->oldValues[$field] = $value;
         } elseif (!isset($this->oldValues[$field]) || $this->values[$field] !== $value) {
             if (isset($this->values[$field])) {
                 $this->oldValues[$field] = $this->values[$field];
             }
             $this->values[$field] = $value;    
-        }
+        }*/
         $this->setted[$field] = true;
     }
 
@@ -934,7 +934,7 @@ abstract class BaseRecord implements \IteratorAggregate
             $this->values = array();
             foreach ($this->getColumns() as $columnName => $column) {
                 $this->values[$columnName] = null;
-                $this->oldValues[$columnName] = null;
+                //$this->oldValues[$columnName] = null;
             }
         }
         foreach ($data as $field => $value) {
