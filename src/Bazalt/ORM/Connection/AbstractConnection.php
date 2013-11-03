@@ -84,14 +84,14 @@ abstract class AbstractConnection
     private function _getPDO()
     {
         if ($this->_PDOObject == null) {
-            set_exception_handler(array(__CLASS__, 'exception_handler'));
+            //set_exception_handler(array(__CLASS__, 'exception_handler'));
             $this->_PDOObject = new \PDO(
                 $this->connectionAdapter->toPDOConnectionString(), 
                 $this->connectionAdapter->getUser(),
                 $this->connectionAdapter->getPassword(),
                 $this->connectionAdapter->getOptions()
             );
-            restore_exception_handler();
+            //restore_exception_handler();
 
             $queries = $this->connectionAdapter->getInitQueries();
             if ($queries != null && @count($queries) > 0) {
@@ -106,10 +106,7 @@ abstract class AbstractConnection
 
     public static function exception_handler($exception)
     {
-        if ($exception instanceof \PDOException) {
-            throw \Bazalt\ORM\Exception\Base::getException($exception);
-        }
-        throw $exception;
+        throw \Bazalt\ORM\Exception\Base::getException($exception);
     }
 
     /**
