@@ -30,7 +30,7 @@ abstract class AbstractConnection
     /**
      * Connection adapter
      *
-     * @see ORM_Adapter_Abstract
+     * @see \Bazalt\ORM\Adpter\AbstractAdapter
      */
     protected $connectionAdapter;
 
@@ -70,7 +70,7 @@ abstract class AbstractConnection
      *
      * @see ORM_Adapter_Abstract
      */
-    public function __construct(ORM\Adapter\AbstractAdapter $adapter)
+    public function __construct(\Bazalt\ORM\Adapter\AbstractAdapter $adapter)
     {
         $this->connectionAdapter = $adapter;
         $this->logger = ORM::logger(get_class($this));
@@ -106,7 +106,7 @@ abstract class AbstractConnection
 
     public static function exception_handler($exception)
     {
-        throw ORM\Exception\Base::getException($exception);
+        throw \Bazalt\ORM\Exception\Base::getException($exception);
     }
 
     /**
