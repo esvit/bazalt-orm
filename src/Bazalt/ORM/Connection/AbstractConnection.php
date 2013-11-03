@@ -79,7 +79,7 @@ abstract class AbstractConnection
     /**
      * Return PDO object
      *
-     * @return PDO object
+     * @return \PDO object
      */
     private function _getPDO()
     {
@@ -106,7 +106,10 @@ abstract class AbstractConnection
 
     public static function exception_handler($exception)
     {
-        throw \Bazalt\ORM\Exception\Base::getException($exception);
+        if ($exception instanceof \PDOException) {
+            throw \Bazalt\ORM\Exception\Base::getException($exception);
+        }
+        throw $exception;
     }
 
     /**
