@@ -10,6 +10,11 @@
  * @version    $Revision: 133 $
  */
 
+namespace Bazalt\ORM\Generator;
+
+use Bazalt\ORM;
+use Whoops\Example\Exception;
+
 /**
  * Генератор файлів моделей бази даних
  *
@@ -20,7 +25,7 @@
  * @license    GPLv3
  * @version    $Revision: 133 $
  */ 
-class ORM_Generator_Models extends Object
+class Models
 {
     protected $shema;
     
@@ -96,7 +101,7 @@ class ORM_Generator_Models extends Object
      *
      * @return void
      */
-    public function generateFromDb(ORM_Connection_Abstract $connection = null, $path, $table = null, $prefix = null)
+    public function generateFromDb(ConnectionAbstract $connection, $path, $table, $modelName, $prefix)
     {
         //$this->OnBeforeGenerate();
         if($prefix) {
@@ -108,23 +113,18 @@ class ORM_Generator_Models extends Object
             
             #створює папки для моделей
             $this->createFolders($path);
-            
+
             $this->connection = $connection;
             #витягує всі таблиці з бази
             if (empty($table) || $table == '*') {
-                $q = new ORM_Query('SHOW TABLES;');
+                throw new Exception('Not implemented');
+                //$q = new ORM\Query('SHOW TABLES;');
             } else {
-                $q = new ORM_Query('SHOW TABLES LIKE \'' . $table . '\';');
+                $q = new ORM\Query('SHOW TABLES LIKE \'' . $table . '\';');
             }
             $q->connection($this->connection);
-            $tables = $q->fetchAll(); 
+            $tables = $q->fetchAll('stdClass');
 
-            #генерує масив звязків з ключів таблиць
-            foreach ($tables as $table) {
-                $tableName = current(get_object_vars($table));
-                echo 'Table "' . $tableName . "\"\n";
-                $this->getRelations($tableName);
-            }
             // print_r(self::$relations);
             // exit;
             
@@ -138,23 +138,23 @@ class ORM_Generator_Models extends Object
             foreach ($tables as $table) {
                 $tableName = current(get_object_vars($table));
                 #витягує всі стовпці з таблиці
-                $q = new ORM_Query('SHOW FULL COLUMNS FROM `' . $tableName . '`;');
+                $q = new ORM\Query('SHOW FULL COLUMNS FROM `' . $tableName . '`;');
                 $q->connection($this->connection);
                 $columns = $q->fetchAll(); 
                 
                 $res = $this->getColumnsMeta($columns);
-                $name = $this->getModelName($tableName);
-                
+                //$name = $this->getModelName($tableName);
+                //exit('O_o');
                 // Base class
-                $baseContent = $this->generateBaseFileContent($name, $tableName, $res['fields'], $res['keys']);
-                $fileName = $path . '/' . self::BASECLASSES_DIR . '/' . $name . '.php';
+                $baseContent = $this->generateBaseFileContent($modelName, $tableName, $res['fields'], $res['keys']);
+                $fileName = $path . '/' . self::BASECLASSES_DIR . '/' . $modelName . '.php';
                 file_put_contents($fileName, $baseContent);
                 // exit;
 
                 // Model class
-                $fileName = $path . '/' . $name . '.php';
+                $fileName = $path . '/' . $modelName . '.php';
                 if( !file_exists( $fileName ) ) {
-                    $content = $this->generateFileContent($name, $tableName, $res['fields']);            
+                    $content = $this->generateFileContent($modelName, $tableName, $res['fields']);
                     file_put_contents($fileName, $content);
                 }
             }
@@ -180,8 +180,9 @@ class ORM_Generator_Models extends Object
         $content = '<?php' . "\n";
         $content .= $this->getFileDocComment($className);
         $content .= $this->getClassDocComment($tableName, $fields);
-        
-        $content .= 'class '.$this->getPrefix($tableName).'_Model_' . $className . ' extends '.$this->getPrefix($tableName).'_Model_Base_' . $className  . "\n";
+        $content .= 'namespace '.$this->getPrefix($tableName).'\Model;' . "\n";
+        $content .= 'use Bazalt\ORM;' . "\n\n";
+        $content .= 'class '. $className . ' extends Base\\' . $className  . "\n";
         $content .= '{' . "\n";
         $content .= '}' . "\n";
         return $content;
@@ -205,7 +206,8 @@ class ORM_Generator_Models extends Object
         $content .= $this->getFileDocComment($className);
         $content .= $this->getClassDocComment($tableName, $fields);
 
-        $content .= 'abstract class '.$this->getPrefix($tableName).'_Model_Base_' . $className . ' extends CMS_Model_Base_Record' . "\n";
+        $content .= 'namespace '.$this->getPrefix($tableName).'\Model\Base;' . "\n\n";
+        $content .= 'abstract class '. $className . ' extends \Bazalt\ORM\Record' . "\n";
         $content .= '{' . "\n";
         $content .= '    const TABLE_NAME = \'' . $tableName . '\';' . "\n\n";
         $content .= '    const MODEL_NAME = \'' . $this->getPrefix($tableName).'_Model_' . $className . '\';' . "\n\n";
@@ -227,27 +229,10 @@ class ORM_Generator_Models extends Object
             $content .= "\n";
         }
         $content .= '    }' . "\n\n";
-        $content .= $this->generateRelations($className);
+        $content .= $this->generateRelations($className, $fields);
 
         $content .= "\n";
         
-        $content .= '    public function getById($id)' . "\n";
-        $content .= '    {' . "\n";
-        $content .= '        return parent::getRecordById($id, self::MODEL_NAME);' . "\n";
-        $content .= '    }' . "\n\n";
-        $content .= '    public function getAll($limit = null)' . "\n";
-        $content .= '    {' . "\n";
-        $content .= '        return parent::getAllRecords($limit, self::MODEL_NAME);' . "\n";
-        $content .= '    }' . "\n\n";
-        $content .= '    public function select($fields = null)' . "\n";
-        $content .= '    {' . "\n";
-        $content .= '        return ORM::select(self::MODEL_NAME, $fields);' . "\n";
-        $content .= '    }' . "\n\n";
-        $content .= '    public function insert($fields = null)' . "\n";
-        $content .= '    {' . "\n";
-        $content .= '        return ORM::insert(self::MODEL_NAME, $fields);' . "\n";
-        $content .= '    }' . "\n\n";
-
         $content .= '}';
         //print_r(self::$relations); print "\n";
         return $content;
@@ -309,7 +294,7 @@ class ORM_Generator_Models extends Object
     public function getFileDocComment($className)
     {
         $content = '/**' . "\n";
-        $content .= ' * ' . $className .',зрз'. "\n";
+        $content .= ' * ' . $className .'.php'. "\n";
         $content .= ' *' . "\n";
         $content .= ' * @category  DataModels' . "\n";
         $content .= ' * @package   DataModel' . "\n";
@@ -402,124 +387,40 @@ class ORM_Generator_Models extends Object
     /**
      * Генерує код функції для ініціалізації звязків
      */
-    protected function generateRelations($modelName)
+    protected function generateRelations($modelName, $fields)
     {
         $content = '';
 
         $content .= '    public function initRelations()'. "\n";
         $content .= '    {'. "\n";
-        if (count(self::$relations[$modelName]) > 0) {
-            foreach (self::$relations[$modelName] as $refName => $ref) {
-                $content .= '        $this->hasRelation(\'' . $refName . '\', ' . 
-                                                              $ref . ');' . "\n";
+        $content .= '    }'. "\n";
+        $content .= "\n";
+        $content .= '    public function initPlugins()'. "\n";
+        $content .= '    {'. "\n";
+
+        $tsPluginFields = [];
+        foreach ($fields as $fieldName => $field) {
+            if($fieldName == 'created_at') {
+                $tsPluginFields['created'] = $fieldName;
+            }
+            if($fieldName == 'updated_at') {
+                $tsPluginFields['updated'] = $fieldName;
+            }
+            if($fieldName == 'created_at') {
+                $tsPluginFields['created'] = $fieldName;
+            }
+            if($fieldName == 'updated_at') {
+                $tsPluginFields['updated'] = $fieldName;
             }
         }
-        $content .= $refss;
+        if(count($tsPluginFields) > 0) {
+            $content .= '        $this->hasPlugin(\'Bazalt\\ORM\\Plugin\\Timestampable\', '.var_export($tsPluginFields, true).');'. "\n";
+        }
+        //$this->hasPlugin('Bazalt\\ORM\\Plugin\\Timestampable', ['created' => 'created_at', 'updated' => 'updated_at']);
         $content .= '    }'. "\n";
         
         return $content;
     }
-
-    /**
-     * Завантажує інформацію про звязки з БД
-     */
-    public function getRelations($tableName)
-    {
-        $q = new ORM_Query('
-        SELECT
-            CONSTRAINT_NAME,
-            REFERENCED_COLUMN_NAME AS `column`,
-            TABLE_NAME AS `refTable`,
-            COLUMN_NAME AS `refColumn`
-        FROM
-            information_schema.KEY_COLUMN_USAGE
-        WHERE
-            CONSTRAINT_SCHEMA = \'' . $this->shema . '\'
-            AND REFERENCED_TABLE_NAME = \'' . $tableName . '\'
-            AND REFERENCED_TABLE_SCHEMA IS NOT NULL');
-    
-        $res = $q->fetchAll();
-        if (count($res) > 0) {
-            foreach ($res as &$refs) {
-                $this->getRelationType($tableName, $refs);                
-            }
-        }
-    }
-
-    /**
-     * Повертає тип звязку
-     */
-    protected function getRelationType($tableName, $relation)
-    {
-        $q = new ORM_Query('
-        SELECT
-            CONSTRAINT_NAME as `constrName`,
-            REFERENCED_COLUMN_NAME AS `column`,
-            REFERENCED_TABLE_NAME AS `refTable`,
-            COLUMN_NAME AS `refColumn`
-        FROM
-            information_schema.KEY_COLUMN_USAGE
-        WHERE 
-            CONSTRAINT_SCHEMA = \''.$this->shema.'\'
-            AND TABLE_NAME = \''.$relation->refTable.'\'
-            AND REFERENCED_TABLE_SCHEMA IS NOT NULL
-            AND REFERENCED_TABLE_NAME != \''.$tableName.'\'');
-        
-        $res = $q->fetch();
-
-        $refModel = $this->getModelName($res->refTable);
-        $refTable = $this->getModelName($relation->refTable);
-        $tabName = $this->getModelName($tableName);
-        
-        $column = $res->refColumn;
-        $relColumn = $relation->refColumn;
-
-        if (!array_key_exists($refModel,self::$relations)) {
-            self::$relations[$refModel] = array();
-        }
-
-        if (!array_key_exists($refTable,self::$relations)) {
-            self::$relations[$refTable] = array();
-        }
-
-        if ($res && $res->constrName == $res->refColumn) {
-            #Генеруємо звязок Many2Many
-            self::$relations[ $tabName ][$refModel] = 'new ORM_Relation_Many2Many(\''.$this->getPrefix($refModel).'_Model_' . $refModel . '\', \'' . $relColumn . '\', \''.$this->getPrefix($refTable).'_Model_'.$refTable.'\', \''. $column .'\')';
-        } else {
-            #Генеруємо звязоки ORMRelationOne2Many / ORMRelationOne2One одразу в двох таблицях
-            if( $this->isUnique($relation->refTable, $relation->refColumn) ) {
-                #Генеруємо прямий звязок - ORMRelationOne2One
-                self::$relations[ $tabName ][$refTable] = 'new ORM_Relation_One2One(\''.$this->getPrefix($refTable).'_Model_'.$refTable.'\', \'' . $relation->column . '\',  \''. $relColumn .'\')';
-                #Якщо поле по якому йде звязок унікальне
-                if( $this->isUnique($tableName, $relation->refColumn) ) {
-                    #Генеруємо зворотній звязок - ORMRelationOne2One
-                    self::$relations[ $refTable ][$tabName] = 'new ORM_Relation_One2One(\''.$this->getPrefix($tabName).'_Model_'.$tabName.'\', \'' . $relColumn . '\',  \''. $relation->column .'\')';
-                } else {
-                    #Генеруємо зворотній звязок - ORMRelationOne2Many
-                    self::$relations[ $refTable ][$tabName] = 'new ORM_Relation_One2Many(\''.$this->getPrefix($tabName).'_Model_'.$tabName.'\', \'' . $relColumn . '\',  \''. $relation->column .'\')';
-                }
-            } else {
-                #Генеруємо прямий звязок - ORMRelationOne2Many
-                self::$relations[ $tabName ][$refTable] = 'new ORM_Relation_One2Many(\''.$this->getPrefix($refTable).'_Model_'.$refTable.'\', \'' . $relation->column . '\', \''. $relColumn .'\')';
-                #Генеруємо зворотній звязок - ORMRelationOne2One
-                self::$relations[ $refTable ][$tabName] = 'new ORM_Relation_One2One(\''.$this->getPrefix($tabName).'_Model_'.$tabName.'\', \'' . $relColumn . '\',  \''. $relation->column .'\')';
-            }
-        }        
-    }
-    
-    protected function getModelName($tableName)
-    {
-        $tmp = explode('_', $tableName);
-        if(count($tmp) == 1) {
-            return ucfirst($tableName);
-        }
-        unset($tmp[0]);
-        if(count($tmp) > 2) {
-            unset($tmp[1]);
-        }
-        return ucfirst(DataType_String::toCamelCase(implode('_', $tmp)));
-    }
-
     /**
      * Перевіряє унікальність ключа
      */
