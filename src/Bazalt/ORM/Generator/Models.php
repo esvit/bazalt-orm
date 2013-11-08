@@ -184,6 +184,17 @@ class Models
         $content .= 'use Bazalt\ORM;' . "\n\n";
         $content .= 'class '. $className . ' extends Base\\' . $className  . "\n";
         $content .= '{' . "\n";
+        $content .= '    public static function getCollection()' . "\n";
+        $content .= '    {' . "\n";
+        $content .= '        $q = '. $className . '::select();' . "\n";
+        $content .= '        return new \Bazalt\ORM\Collection($q);' . "\n";
+        $content .= '    }' . "\n";
+        $content .= "\n";
+        $content .= '    public static function create()' . "\n";
+        $content .= '    {' . "\n";
+        $content .= '        $o = new '. $className . '();' . "\n";
+        $content .= '        return $o;' . "\n";
+        $content .= '    }' . "\n";
         $content .= '}' . "\n";
         return $content;
     }
