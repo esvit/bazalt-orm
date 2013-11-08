@@ -178,8 +178,8 @@ class Models
     protected function generateFileContent($className, $tableName, $fields)
     {
         $content = '<?php' . "\n";
-        $content .= $this->getFileDocComment($className);
-        $content .= $this->getClassDocComment($tableName, $fields);
+//        $content .= $this->getFileDocComment($className);
+//        $content .= $this->getClassDocComment($tableName, $fields);
         $content .= 'namespace '.$this->getPrefix($tableName).'\Model;' . "\n";
         $content .= 'use Bazalt\ORM;' . "\n\n";
         $content .= 'class '. $className . ' extends Base\\' . $className  . "\n";
