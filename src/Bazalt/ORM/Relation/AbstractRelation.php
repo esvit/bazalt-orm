@@ -128,7 +128,7 @@ abstract class AbstractRelation
     protected function checkType(Record $item)
     {
         if (!$item instanceof $this->name) {
-            throw new InvalidArgumentException('Invalid type of argument "' . get_class($item) . '",'.
+            throw new \InvalidArgumentException('Invalid type of argument "' . get_class($item) . '",'.
                 'must be subclass of "' . $this->name . '"');
         }
     }
