@@ -76,9 +76,11 @@ class Select extends Builder
      *
      * @return \Bazalt\ORM\Query\Select
      */
-    public function select($fields)
+    public function select($fields = '')
     {
-        $this->select = self::explode($fields);
+        if($fields != '') {//this if for old php version when select() call instead __construct
+            $this->select = self::explode($fields);
+        }
         return $this;
     }
 
