@@ -2,7 +2,7 @@
 
 namespace tests;
 
-class Record extends BaseCase
+class Record extends ORMBaseCase
 {
     protected $testObj;
 

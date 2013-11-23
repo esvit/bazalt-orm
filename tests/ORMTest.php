@@ -4,7 +4,7 @@ namespace tests;
 
 use Bazalt\ORM as ORM;
 
-class ORMTest extends \tests\BaseCase
+class ORMTest extends ORMBaseCase
 {
     public function testSelectt()
     {

@@ -2,7 +2,7 @@
 
 namespace tests\Relation;
 
-class Many2Many extends \tests\BaseCase
+class Many2Many extends \tests\ORMBaseCase
 {
     protected $testObj;
 

@@ -2,7 +2,7 @@
 
 namespace tests;
 
-class AdapterTest extends BaseCase
+class AdapterTest extends ORMBaseCase
 {   
     public function testMysqlConnectionString()
     {

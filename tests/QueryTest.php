@@ -2,7 +2,7 @@
 
 namespace tests;
 
-class Query extends \tests\BaseCase
+class QueryTest extends ORMBaseCase
 {
     protected $testObj;
 

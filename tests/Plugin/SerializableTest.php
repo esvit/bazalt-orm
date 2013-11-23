@@ -2,7 +2,7 @@
 
 namespace tests\Plugin;
 
-class SerializableTest extends \tests\BaseCase
+class SerializableTest extends \tests\ORMBaseCase
 {
     protected $model = null;
 
