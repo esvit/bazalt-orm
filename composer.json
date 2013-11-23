@@ -8,10 +8,9 @@
         }
     ],
     "autoload": {
-        "psr-0": {
-            "Bazalt\\ORM": "src/",
-            "tests": "."
-        }
+        "classmap": [
+            "src", "tests"
+        ]
     },
     "require": {
         "php": ">=5.3.0",
