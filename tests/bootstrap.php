@@ -1,12 +1,6 @@
 <?php
 
-namespace tests;
-
 require_once (is_file(__DIR__ . '/../vendor/autoload.php') ? (__DIR__ . '/../vendor/autoload.php') : '../vendor/autoload.php');
-
-$loader = new \Composer\Autoload\ClassLoader();
-$loader->add('tests', __DIR__ . '/..');
-$loader->register();
 
 /*
     CREATE USER 'test'@'localhost' IDENTIFIED BY 'test';
@@ -28,23 +22,3 @@ $dbParams = array(
 
 $connectionString = new \Bazalt\ORM\Adapter\Mysql($dbParams);
 \Bazalt\ORM\Connection\Manager::add($connectionString, 'test');
-
-new Plugin\Model\FilmText();
-
-// Autoloading is not available if using PHP in CLI interactive mode.
-new Model\Actor();
-new Model\Address();
-new Model\Category();
-new Model\City();
-new Model\Country();
-new Model\Customer();
-new Model\Film();
-new Model\FilmActor();
-new Model\FilmCategory();
-new Model\FilmText();
-new Model\Inventory();
-new Model\Language();
-new Model\Payment();
-new Model\Rental();
-new Model\Staff();
-new Model\Store();

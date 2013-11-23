@@ -9,7 +9,8 @@
     ],
     "autoload": {
         "psr-0": {
-            "Bazalt\\ORM": "src/"
+            "Bazalt\\ORM": "src/",
+            "tests": "."
         }
     },
     "require": {
