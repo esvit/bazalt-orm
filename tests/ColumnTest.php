@@ -2,7 +2,7 @@
 
 namespace tests;
 
-class ColumnTest extends \tests\BaseCase
+class ColumnTest extends ORMBaseCase
 {
     protected $testObj;
 
