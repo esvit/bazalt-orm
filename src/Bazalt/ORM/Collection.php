@@ -142,7 +142,7 @@ class Collection
      *
      * @return array Результат вибірки
      */
-    public function fetchPage()
+    public function fetchPage($className)
     {
         $curPage = $this->page();
         $q = clone $this->query;
@@ -156,7 +156,7 @@ class Collection
         $q->limit($start, $this->countPerPage);
         $this->pagesCount = ceil($this->count/$this->countPerPage);
 
-        return $q->fetchAll();
+        return $q->fetchAll($className);
     }
 
     /**
