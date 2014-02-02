@@ -142,7 +142,7 @@ class Collection
      *
      * @return array Результат вибірки
      */
-    public function fetchPage($className)
+    public function fetchPage($className = null)
     {
         $curPage = $this->page();
         $q = clone $this->query;
