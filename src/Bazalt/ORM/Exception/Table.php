@@ -23,7 +23,7 @@ class Table extends Base
     {
         $this->tableName = $tableName;
 
-        parent::__construct($message, $innerEx, $code);
+        parent::__construct($message . ' ' . $tableName, $innerEx, $code);
     }
 
     /**
