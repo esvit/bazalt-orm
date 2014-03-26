@@ -351,7 +351,7 @@ class NestedSet extends AbstractRelation implements IRelationMany
 
         if (ORM_NESTEDSET_ANALYZE) {
             if (!$this->analyze()) {
-                $this->getLogger()->err('Nested set has errors. Rollback');
+                $this->getLogger()->error('Nested set has errors. Rollback');
                 ORM::rollBack();
                 return false;
             }
@@ -441,7 +441,7 @@ class NestedSet extends AbstractRelation implements IRelationMany
 
         if (ORM_NESTEDSET_ANALYZE) {
             if (!$this->analyze()) {
-                $this->getLogger()->err('Nested set has errors. Rollback');
+                $this->getLogger()->error('Nested set has errors. Rollback');
                 ORM::rollBack();
                 return false;
             }
@@ -471,7 +471,7 @@ class NestedSet extends AbstractRelation implements IRelationMany
 
         $nodes = $q->fetchAll();
         if (!count($nodes)) {
-            $this->getLogger()->err('Have same left number');
+            $this->getLogger()->error('Have same left number');
             self::$error[] = 'Have same left number';
             return false;
         }
@@ -486,7 +486,7 @@ class NestedSet extends AbstractRelation implements IRelationMany
 
         $nodes = $q->fetchAll();
         if (!count($nodes)) {
-            $this->getLogger()->err('Have same right number');
+            $this->getLogger()->error('Have same right number');
             self::$error[] = 'Have same right number';
             return false;
         }
@@ -518,7 +518,7 @@ class NestedSet extends AbstractRelation implements IRelationMany
         $res = $q->fetch('stdClass');
 
         if ($res->max_rgt != $res->count) {
-            $this->getLogger()->err('Right index does not match node count');
+            $this->getLogger()->error('Right index does not match node count');
             self::$error[] = 'Right index does not match node count';
             return false;
         }
@@ -532,7 +532,7 @@ class NestedSet extends AbstractRelation implements IRelationMany
                 ->noCache();
 
         if ($q->exec() > 1) {
-            $this->getLogger()->err('You have repeat left or right columns');
+            $this->getLogger()->error('You have repeat left or right columns');
             self::$error[] = 'You have repeat left or right columns';
             return false;
         }
