@@ -901,6 +901,9 @@ abstract class BaseRecord implements \IteratorAggregate
         foreach ($this->getColumns() as $column) {
             $fieldName = $column->name();
             $res[$fieldName] = $this->$fieldName;
+            if (substr($column->dataType(), -3) == 'int') {
+                $res[$fieldName] = (int)$res[$fieldName];
+            }
         }
         $plugins = $this->getPlugins();
         if ($plugins) {
