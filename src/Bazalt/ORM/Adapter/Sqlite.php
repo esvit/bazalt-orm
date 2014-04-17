@@ -1,6 +1,6 @@
 <?php
 /**
- * Mysql.php
+ * Sqlite.php
  *
  * @category   System
  * @package    ORM
@@ -25,7 +25,7 @@ use Framework\Core\Logger,
  * @license    GPLv3
  * @version    $Revision: 133 $
  */ 
-class Mysql extends AbstractAdapter
+class Sqlite extends AbstractAdapter
 {
     /**
      * Провайдер
