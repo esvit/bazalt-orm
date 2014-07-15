@@ -147,7 +147,8 @@ class Collection
         $curPage = $this->page();
         $q = clone $this->query;
 
-        $this->count = $this->query->rowCount();
+        $this->count = $this->query->exec();
+//        $this->count = $this->query->rowCount();
         $start = ($curPage-1) * $this->countPerPage;
         if ($this->count > 0 && $start >= $this->count) {
             throw new \Bazalt\ORM\Exception\Collection('Invalid page number');
