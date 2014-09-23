@@ -187,6 +187,7 @@ class Union extends Builder
         return $this;
     }
 
+
     /**
      * Додає ORDER BY параметри до запиту
      *
