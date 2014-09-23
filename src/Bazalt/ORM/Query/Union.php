@@ -186,4 +186,28 @@ class Union extends Builder
         }
         return $this;
     }
+
+    /**
+     * Додає ORDER BY параметри до запиту
+     *
+     * @param string $fields Список полів для ORDER BY
+     *
+     * @return \Bazalt\ORM\Query\Select
+     */
+    public function addOrderBy($fields)
+    {
+        $this->orderBy = array_merge($this->orderBy, self::explode($fields));
+        return $this;
+    }
+
+    /**
+     * Очищає ORDER BY
+     *
+     * @return \Bazalt\ORM\Query\Select
+     */
+    public function clearOrderBy()
+    {
+        $this->orderBy = array();
+        return $this;
+    }
 }
