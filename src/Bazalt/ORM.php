@@ -21,7 +21,7 @@ if (!defined('DEVELOPMENT_STAGE')) {
 }
 
 if (!extension_loaded('pdo_mysql')) {
-    throw new Exception('PHP Extension "pdo_mysql" must be loaded');
+    throw new \Exception('PHP Extension "pdo_mysql" must be loaded');
 }
 
 /**
