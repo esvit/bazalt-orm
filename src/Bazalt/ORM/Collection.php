@@ -314,4 +314,14 @@ class Collection
     {
         return call_user_func_array(array($this->query, $name), $arguments);
     }
+    
+   /**
+     * Rerurn current ORM query
+     *
+     * @return Query Поточний запит
+     */
+    public function getQuery()
+    {
+        return $this->query;
+    }
 }
