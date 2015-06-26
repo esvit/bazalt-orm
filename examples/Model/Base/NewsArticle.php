@@ -2,11 +2,11 @@
 
 namespace Model\Base;
 
-abstract class Category extends \Bazalt\ORM\Record
+abstract class NewsArticle extends \Bazalt\ORM\Record
 {
     const TABLE_NAME = 'categories';
 
-    const MODEL_NAME = 'Model\Category';
+    const MODEL_NAME = 'Model\NewsArticle';
 
     const ENGINE = 'InnoDB';
 
@@ -17,8 +17,10 @@ abstract class Category extends \Bazalt\ORM\Record
 
     protected function initFields()
     {
-        $this->hasColumn('category_id', 'PUA:int(10)');
-        $this->hasColumn('name', 'varchar(255)');
+        $this->hasColumn('article_id', 'PUA:int(10)');
+        $this->hasColumn('category_id', 'U:int(10)');
+        $this->hasColumn('title', 'varchar(255)');
+        $this->hasColumn('description', 'text');
         $this->hasColumn('created_at', 'datetime');
         $this->hasColumn('updated_at', 'datetime');
     }
