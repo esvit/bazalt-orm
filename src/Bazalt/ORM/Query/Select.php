@@ -119,8 +119,8 @@ class Select extends Builder
      * @param integer $from  Початкове значення ліміту
      * @param integer $count Кількість записів в результаті
      *
-     * @throws InvalidArgumentException
-     * @return ORM_Query_Select
+     * @throws \InvalidArgumentException
+     * @return \Bazalt\ORM\Query\Select
      */
     public function limit($from, $count = null)
     {
