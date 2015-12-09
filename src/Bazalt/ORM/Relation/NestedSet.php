@@ -183,7 +183,7 @@ class NestedSet extends AbstractRelation implements IRelationMany
         $right = $this->baseObject->{self::RIGHT_FIELDNAME};
 
         if (empty($this->baseObject->{$this->column})) {
-            throw new Exception('Category column "' . $this->column . '" empty, need for nestedset');
+            throw new \Exception('Category column "' . $this->column . '" empty, need for nestedset');
         }
         // зсуває елементи дерева щоб поставити елемент
         $q = ORM::update($this->name)
@@ -237,7 +237,6 @@ class NestedSet extends AbstractRelation implements IRelationMany
         $this->baseObject = self::getRecordById((int)$this->baseObject->id, get_class($this->baseObject));
 
         $beforeItem = $this->baseObject;
-
         if (!$beforeItem) {
             throw new \Exception('Invalid element for insert');
         }
@@ -554,9 +553,12 @@ class NestedSet extends AbstractRelation implements IRelationMany
         $this->baseObject = self::getRecordById((int)$this->baseObject->id, get_class($this->baseObject));
 
         $afterItem = $this->baseObject;
-
         if (!$afterItem) {
-            throw new Exception('Invalid element for insert');
+            throw new \Exception('Invalid element for insert');
+        }
+
+        if (ORM_NESTEDSET_ANALYZE) {
+            ORM::begin();
         }
 
         $left = $afterItem->{self::RIGHT_FIELDNAME};
@@ -573,6 +575,15 @@ class NestedSet extends AbstractRelation implements IRelationMany
         $element->{self::RIGHT_FIELDNAME} = $left + 2;
         $element->{self::DEPTH_FIELDNAME} = $this->baseObject->{self::DEPTH_FIELDNAME};
         $element->save();
+
+        if (ORM_NESTEDSET_ANALYZE) {
+            if (!$this->analyze()) {
+                $this->getLogger()->error('Nested set has errors. Rollback');
+                ORM::rollBack();
+                return false;
+            }
+            ORM::commit();
+        }
 
         if (isset($element->Childrens) && is_array($element->Childrens)) {
             $cls = get_class($element);
@@ -598,7 +609,7 @@ class NestedSet extends AbstractRelation implements IRelationMany
     public function insert($element, $pos = 0)
     {
         if ($this->baseObject->id == $element->id) {
-            throw new Exception('Cant insert element');
+            throw new \Exception('Cant insert element');
         }
         // need! because update query can update field values
         $this->baseObject = self::getRecordById((int)$this->baseObject->id, get_class($this->baseObject));
@@ -616,7 +627,7 @@ class NestedSet extends AbstractRelation implements IRelationMany
         }
 
         if (!$beforeItem) {
-            throw new Exception('Invalid element for insert');
+            throw new \Exception('Invalid element for insert');
         }
 
         $left = $beforeItem->{self::LEFT_FIELDNAME};
@@ -665,7 +676,7 @@ class NestedSet extends AbstractRelation implements IRelationMany
     public function remove(ORM\Record $elem, $onlyParent = false)
     {
         if (get_class($elem) != $this->name) {
-            throw new Exception('Invlid object. Must be ' . $this->name);
+            throw new \Exception('Invlid object. Must be ' . $this->name);
         }
         
         // need! because update query can update field values

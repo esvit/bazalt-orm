@@ -786,18 +786,6 @@ abstract class BaseRecord implements \IteratorAggregate
     {
         self::$plugins[get_class($this)][$name] = $options;
     }
-    
-    /**
-     * Додає плагін в модель
-     *
-     * @param ORM_Index_Abstract $index
-     *
-     * @return void
-     */    
-    public function hasIndex(\ORM_Index_Abstract $index)
-    {
-        self::$indexes[$this->tableName][$index->name()] = $index;
-    }
 
     /**
      * Ініціалізує плагіни моделі
