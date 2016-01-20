@@ -478,6 +478,21 @@ abstract class Builder extends ORM\Query
         return $this;
     }
 
+    /**
+     * Додає до WHERE гурпу умов ( ... ) через AND NOT
+     *
+     * @return \Bazalt\ORM\Query\Builder
+     */
+    public function notWhereGroup()
+    {
+        $this->whereGroupEmpty = true;
+        $this->whereGroups ++;
+        if (!empty($this->where)) {
+            $this->where .= ' AND NOT ';
+        }
+        $this->where .= ' (';
+        return $this;
+    }
 
     /**
      * Закриває відкриту раніше групу умов, доданих через andWhereGroup або orWhereGroup
@@ -518,7 +533,7 @@ abstract class Builder extends ORM\Query
         }  else {
             throw new \Exception('Invalid argument for function whereIn');
         }
-        if (!empty($this->where)) {
+        if (!empty($this->where) && !$this->whereGroupEmpty) {
             $this->where .= ' ' . $oper;
         }
         $this->whereGroupEmpty = false;
