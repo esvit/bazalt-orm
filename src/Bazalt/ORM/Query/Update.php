@@ -47,13 +47,6 @@ class Update extends Builder
      * @var array
      */
     protected $orderBy = array();
-
-    /**
-     * Масив полів для запиту
-     *
-     * @var array
-     */
-    protected $fields = array();
     
     /**
      * Флаг - видаляти автоматично кеш при апйдейті чи ні
