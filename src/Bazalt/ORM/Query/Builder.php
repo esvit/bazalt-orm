@@ -34,6 +34,13 @@ abstract class Builder extends ORM\Query
     protected $fetchType = null;
 
     /**
+     * Масив полів для запиту
+     *
+     * @var array
+     */
+    protected $fields = array();
+    
+    /**
      * Значення для полів $fields
      *
      * @var array
