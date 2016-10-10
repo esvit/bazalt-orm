@@ -32,7 +32,7 @@ abstract class Builder extends ORM\Query
      * @var array
      */
     protected $fields = [];
-    
+
     /**
      * Назва моделі, в яку будуть завантажені результати вибірки
      *
@@ -338,9 +338,7 @@ abstract class Builder extends ORM\Query
             }
             $this->_set($field, $param);
         } else {
-            $fields = $this->fields;
-            $fields [] = $o;
-            $this->fields[] = $fields;
+            $this->fields[] = $o;
         }
         return $this;
     }
@@ -355,10 +353,8 @@ abstract class Builder extends ORM\Query
      */
     private function _set($field, $param)
     {
-        $fields = $this->fields;
-        $fields [] = $field;
-        $this->fields[] = $fields;
-        
+        $this->fields[] = $field;
+
         $this->setParams[]= $param;
     }
 
