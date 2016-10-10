@@ -331,7 +331,9 @@ abstract class Builder extends ORM\Query
             }
             $this->_set($field, $param);
         } else {
-            $this->fields[] = $o;
+            $fields = $this->fields;
+            $fields [] = $o;
+            $this->fields[] = $fields;
         }
         return $this;
     }
@@ -346,7 +348,10 @@ abstract class Builder extends ORM\Query
      */
     private function _set($field, $param)
     {
-        $this->fields []= $field;
+        $fields = $this->fields;
+        $fields [] = $field;
+        $this->fields[] = $fields;
+        
         $this->setParams[]= $param;
     }
 
