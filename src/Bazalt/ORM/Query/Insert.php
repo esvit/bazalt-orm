@@ -28,13 +28,6 @@ use Bazalt\ORM as ORM;
 class Insert extends Builder
 {
     /**
-     * Масив полів для запиту
-     *
-     * @var array
-     */
-    protected $fields;
-    
-    /**
      * Якщо true - запит буде оновлювати дані на сервері, якщо такий запис вже існує
      *
      * @var array
