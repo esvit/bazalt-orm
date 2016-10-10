@@ -31,7 +31,7 @@ abstract class Builder extends ORM\Query
      *
      * @var array
      */
-    protected $fields;
+    protected $fields = [];
     
     /**
      * Назва моделі, в яку будуть завантажені результати вибірки
