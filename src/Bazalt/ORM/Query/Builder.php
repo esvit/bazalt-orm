@@ -27,6 +27,13 @@ use Bazalt\ORM as ORM;
 abstract class Builder extends ORM\Query
 {
     /**
+     * Масив полів для запиту
+     *
+     * @var array
+     */
+    protected $fields;
+    
+    /**
      * Назва моделі, в яку будуть завантажені результати вибірки
      *
      * @var string
