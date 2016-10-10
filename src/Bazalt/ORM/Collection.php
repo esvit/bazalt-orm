@@ -97,6 +97,9 @@ class Collection
     public function countPerPage($countPerPage = null)
     {
         if ($countPerPage != null) {
+            if ($countPerPage < 1) {
+                $countPerPage = 10;
+            }
             $this->countPerPage = $countPerPage;
             return $this;
         }
