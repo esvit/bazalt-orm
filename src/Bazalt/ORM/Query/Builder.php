@@ -23,23 +23,16 @@ use Bazalt\ORM as ORM;
  * @copyright  2010 Equalteam
  * @license    GPLv3
  * @version    $Revision: 133 $
- */ 
+ */
 abstract class Builder extends ORM\Query
 {
     /**
-     * Назва моделі, в яку будуть завантажені результати вибірки 
+     * Назва моделі, в яку будуть завантажені результати вибірки
      *
      * @var string
      */
     protected $fetchType = null;
 
-    /**
-     * Масив полів для запиту
-     *
-     * @var array
-     */
-    protected $fields = array();
-    
     /**
      * Значення для полів $fields
      *
@@ -53,7 +46,7 @@ abstract class Builder extends ORM\Query
      * @var string
      */
     protected $from = array();
-    
+
     /**
      * Список моделей, які є в запиті
      *
@@ -81,7 +74,7 @@ abstract class Builder extends ORM\Query
      * @var array
      */
     protected $aliases = array();
-    
+
     /**
      * Масив JOIN-ів, ORM_Query_Join
      *
@@ -137,7 +130,7 @@ abstract class Builder extends ORM\Query
         }
         return $alias;
     }
-    
+
     /**
      * Додає LEFT JOIN до запиту
      *
@@ -291,7 +284,7 @@ abstract class Builder extends ORM\Query
     /**
      * Повертає список таблиць і аліасів для запиту
      *
-     * @return string 
+     * @return string
      */
     protected function getFrom()
     {
@@ -349,13 +342,13 @@ abstract class Builder extends ORM\Query
      * @param string $field Назва поля
      * @param mixed  $param Значення
      *
-     * @return void 
+     * @return void
      */
     private function _set($field, $param)
     {
         $this->fields []= $field;
         $this->setParams[]= $param;
-    }    
+    }
 
     /**
      * Аналог натівної ф-ції explode
@@ -363,7 +356,7 @@ abstract class Builder extends ORM\Query
      * @param string $string Вхідна строка
      * @param string $sep    Сепаратор
      *
-     * @return array 
+     * @return array
      */
     protected function explode($string, $sep = ',')
     {
@@ -485,6 +478,22 @@ abstract class Builder extends ORM\Query
         return $this;
     }
 
+    /**
+     * Додає до WHERE гурпу умов ( ... ) через OR
+     *
+     * @return \Bazalt\ORM\Query\Builder
+     */
+    public function notWhereGroup()
+    {
+        $this->whereGroupEmpty = true;
+        $this->whereGroups ++;
+        if (!empty($this->where)) {
+            $this->where .= ' AND NOT ';
+        }
+        $this->where .= ' (';
+        return $this;
+    }
+
 
     /**
      * Закриває відкриту раніше групу умов, доданих через andWhereGroup або orWhereGroup
@@ -525,7 +534,7 @@ abstract class Builder extends ORM\Query
         }  else {
             throw new \Exception('Invalid argument for function whereIn');
         }
-        if (!empty($this->where)) {
+        if (!empty($this->where) && !$this->whereGroupEmpty) {
             $this->where .= ' ' . $oper;
         }
         $this->whereGroupEmpty = false;
@@ -614,7 +623,7 @@ abstract class Builder extends ORM\Query
     /**
      * Повертає ключ в кеші для даного запиту
      *
-     * @return string 
+     * @return string
      */
     public function getCacheKey()
     {
