@@ -124,6 +124,11 @@ class Update extends Builder
         }
 
         $query  = 'UPDATE ' . $this->getFrom();
+        if (count($this->Joins) > 0) {
+            foreach ($this->Joins as $join) {
+                $query .= ' ' . $join->toSQL();
+            }
+        }
         $query .= ' SET ';
         $queryVals = '';
 
