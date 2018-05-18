@@ -101,7 +101,9 @@ class Join extends Builder
         $this->from = $tableName;
         $this->alias = $alias;
 
-        if (count($conditions) > 0) {
+        if (is_array($conditions) && count($conditions) > 0) {
+            $this->conditions = $conditions;
+        } else if ($conditions) {
             $this->conditions = $conditions;
         } else {
             $name = explode('ON', $name);
