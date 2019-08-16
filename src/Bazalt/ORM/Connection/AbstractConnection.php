@@ -24,7 +24,7 @@ use Framework\Core as Core;
  * @copyright  2010 Equalteam
  * @license    GPLv3
  * @version    $Revision: 133 $
- */ 
+ */
 abstract class AbstractConnection
 {
     /**
@@ -86,7 +86,7 @@ abstract class AbstractConnection
         if ($this->_PDOObject == null) {
             //set_exception_handler(array(__CLASS__, 'exception_handler'));
             $this->_PDOObject = new \PDO(
-                $this->connectionAdapter->toPDOConnectionString(), 
+                $this->connectionAdapter->toPDOConnectionString(),
                 $this->connectionAdapter->getUser(),
                 $this->connectionAdapter->getPassword(),
                 $this->connectionAdapter->getOptions()
@@ -142,8 +142,8 @@ abstract class AbstractConnection
     /**
      * Bind params to PDO
      *
-     * @param PDOStatement $st     PDO Statement
-     * @param array        $params Params of query
+     * @param PDOStatement $st PDO Statement
+     * @param array $params Params of query
      *
      * @return void
      */
@@ -155,13 +155,13 @@ abstract class AbstractConnection
                 if (is_int($value)) {
                     $param = \PDO::PARAM_INT;
                     $sParam = 'int';
-                } elseif(is_bool($value)) {
+                } elseif (is_bool($value)) {
                     $param = \PDO::PARAM_BOOL;
                     $sParam = 'bool';
-                } elseif(is_null($value)) {
+                } elseif (is_null($value)) {
                     $param = \PDO::PARAM_NULL;
                     $sParam = 'null';
-                } elseif(is_string($value) || is_float($value)) {
+                } elseif (is_string($value) || is_float($value)) {
                     $param = \PDO::PARAM_STR;
                     $sParam = 'string';
                 } else {
@@ -199,11 +199,11 @@ abstract class AbstractConnection
     /**
      * Execute query width params on database
      *
-     * @param string $query  Query
-     * @param array  $params Params of query
+     * @param string $query Query
+     * @param array $params Params of query
      *
-     * @throws ORM_Exception_Query
      * @return PDOStatement Result of query
+     * @throws ORM_Exception_Query
      */
     public function query($query, $params = array())
     {
@@ -229,8 +229,8 @@ abstract class AbstractConnection
     /**
      * Calculate cache key for query with params
      *
-     * @param string $query  Query
-     * @param array  $params Params of query
+     * @param string $query Query
+     * @param array $params Params of query
      *
      * @return string Cache key
      */

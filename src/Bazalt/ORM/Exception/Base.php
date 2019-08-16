@@ -27,9 +27,9 @@ abstract class Base extends \Exception
     /**
      * Contructor
      *
-     * @param string           $message Exception message
-     * @param Exception        $innerEx Inner exception
-     * @param int              $code    Exception code
+     * @param string $message Exception message
+     * @param \Exception $innerEx Inner exception
+     * @param int $code Exception code
      */
     public function __construct($message, $innerEx = null, $code = 0)
     {
@@ -39,8 +39,11 @@ abstract class Base extends \Exception
     public static function getException(\PDOException $e, $query = null, $params = array())
     {
         switch ($e->getCode()) {
-        case 1049:
-            return new Database($e->getMessage());
+            case 1049:
+                return new Database($e->getMessage());
+            case 1213:
+            case 40001:
+                return new Deadlock($e->getMessage(), $e->getCode(), $e);
         }
         return new Query($e, $query, $params);
     }

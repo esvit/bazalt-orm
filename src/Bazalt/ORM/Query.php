@@ -128,7 +128,11 @@ class Query
         if ($this->connection == null) {
             $this->connection = Connection\Manager::getConnection();
         }
-        $res = $this->connection->query($this->query, $this->getQueryParams());
+        try {
+            $res = $this->connection->query($this->query, $this->getQueryParams());
+        } catch(Bazalt\ORM\Exception\Deadlock $ex) {//let's try once more
+            $res = $this->connection->query($this->query, $this->getQueryParams());
+        }
         $this->error = $this->connection->getErrorInfo();
         //Logger::stop($profile);
         return $res;
