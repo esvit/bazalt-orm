@@ -3,7 +3,6 @@ language: php
 services: mysql
 
 php:
-  - 7.0
   - 7.1
   - 7.2
 
@@ -22,7 +21,7 @@ before_script:
 script:
   - mkdir -p tmp/logs
   - mkdir -p build/logs
-  - phpunit --configuration tests/$DB.xml
+  - php vendor/bin/phpunit --configuration tests/$DB.xml
 
 after_script:
   - php vendor/bin/coveralls -v
