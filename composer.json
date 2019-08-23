@@ -18,6 +18,7 @@
         "symfony/event-dispatcher": "*"
     },
     "require-dev": {
-        "satooshi/php-coveralls": "dev-master"
+        "satooshi/php-coveralls": "~2.1.0",
+        "phpunit/phpunit": "^7"
     }
 }
