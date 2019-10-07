@@ -43,7 +43,7 @@ abstract class Base extends \Exception
                 return new Database($e->getMessage());
             case 1213:
             case 40001:
-                return new Deadlock($e->getMessage(), $e->getCode(), $e);
+                return new Deadlock($e->getMessage(), $e, $e->getCode());
         }
         return new Query($e, $query, $params);
     }
