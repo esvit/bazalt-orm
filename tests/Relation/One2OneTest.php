@@ -6,7 +6,7 @@ class One2One extends \tests\ORMBaseCase
 {
     protected $testObj;
 
-    protected function tearDown()
+    protected function tearDown():void
     {
         $this->testObj = \tests\Model\Address::getById(1);
 
