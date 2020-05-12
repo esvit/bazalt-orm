@@ -6,7 +6,7 @@ class Record extends ORMBaseCase
 {
     protected $testObj;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->testObj = new Model\Actor();
         $this->testObj->first_name = substr(mt_rand().time(),16);
@@ -18,7 +18,7 @@ class Record extends ORMBaseCase
         $this->testObj->actor_id = $builder->Connection->getLastInsertId();
     }
     
-    protected function tearDown()
+    protected function tearDown():void
     {
         if( !is_null($this->testObj) ) {
             $this->testObj->delete();

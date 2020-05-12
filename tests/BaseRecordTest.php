@@ -8,7 +8,7 @@ class BaseRecordTest extends ORMBaseCase
 
     protected $testObj2;
 
-    protected function setUp()
+    protected function setUp():void
     {
         $this->testObj = new \tests\Model\Actor();
         $this->testObj->first_name = substr(mt_rand().time(),16);
@@ -34,7 +34,7 @@ class BaseRecordTest extends ORMBaseCase
         $this->testObj->Films->add($film);
     }
     
-    protected function tearDown()
+    protected function tearDown():void
     {
         if (!is_null($this->testObj)) {
             $this->testObj->Films->removeAll();

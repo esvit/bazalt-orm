@@ -6,12 +6,12 @@ class SerializableTest extends \tests\ORMBaseCase
 {
     protected $model = null;
 
-    public function setUp()
+    public function setUp():void
     {
         $this->model = new Model\FilmText();
     }
 
-    public function tearDown()
+    public function tearDown():void
     {
         if ($this->model->film_id) {
  //           $this->model->delete();
