@@ -3,8 +3,7 @@ language: php
 services: mysql
 
 php:
-  - 7.1
-  - 7.2
+  - 7.3
 
 env:
   - APPLICATION_ENV="testing" DB="mysql" DB_USERNAME="root"

@@ -11,13 +11,18 @@
 
 namespace Bazalt;
 
+use Bazalt\ORM\Plugin\Timestampable;
+
 if (!defined('APPLICATION_ENV')) {
     define('APPLICATION_ENV', getenv('APPLICATION_ENV'));
 }
 if (!defined('DEVELOPMENT_STAGE')) {
     define('DEVELOPMENT_STAGE', APPLICATION_ENV == 'development');
-    define('PRODUCTION_STAGE',  APPLICATION_ENV == 'production');
-    define('TESTING_STAGE',     APPLICATION_ENV == 'testing');
+    define('PRODUCTION_STAGE', APPLICATION_ENV == 'production');
+    define('TESTING_STAGE', APPLICATION_ENV == 'testing');
+    if (TESTING_STAGE) {
+        Timestampable::$TESTING_STAGE = true;
+    }
 }
 
 if (!extension_loaded('pdo_mysql')) {
@@ -32,7 +37,7 @@ if (!extension_loaded('pdo_mysql')) {
  * @copyright  2010 Equalteam
  * @license    GPLv3
  * @version    $Revision: 133 $
- */ 
+ */
 class ORM
 {
     /**
@@ -60,7 +65,7 @@ class ORM
     /**
      * Створює новий SELECT запит до БД за допомогою ORM\Query\Select
      *
-     * @param string $from   Назва моделі
+     * @param string $from Назва моделі
      * @param string $fields Список полів моделі, розділених комою
      *
      * @return ORM\Query\Select
@@ -100,10 +105,10 @@ class ORM
      * Створює новий INSERT запит до БД за допомогою ORM_Query_Insert
      *
      * @param string $from Назва моделі
-     * @param string $set  Об'єкт ORM\Record
+     * @param string $set Об'єкт ORM\Record
      *
-     * @throws ORM\Exception\Insert
      * @return ORM\Query\Insert
+     * @throws ORM\Exception\Insert
      */
     public static function insert($from, $set = null)
     {
@@ -123,10 +128,10 @@ class ORM
      * Створює новий UPDATE запит до БД за допомогою ORM_Query_Update
      *
      * @param string $model Назва моделі
-     * @param string $set  Об'єкт ORMRecord
+     * @param string $set Об'єкт ORMRecord
      *
-     * @throws ORM\Exception\Model
      * @return ORM\Query\Update
+     * @throws ORM\Exception\Model
      */
     public static function update($model, $set = null)
     {
@@ -147,7 +152,7 @@ class ORM
      *
      * @param \Bazalt\ORM\Query\Builder $query1 Запит для обєднання
      * @param \Bazalt\ORM\Query\Builder $query2 Запит для обєднання
-     * @param string            $type   Тип обднання
+     * @param string $type Тип обднання
      *
      * @return ORM\Query\Union
      */

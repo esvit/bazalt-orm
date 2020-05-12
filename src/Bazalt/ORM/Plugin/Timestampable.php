@@ -28,6 +28,8 @@ use Bazalt\ORM as ORM;
  */
 class Timestampable extends AbstractPlugin
 {
+    public static $TESTING_STAGE = false;
+
     /**
      * Ініціалізує плагін
      *
@@ -92,7 +94,7 @@ class Timestampable extends AbstractPlugin
         if(array_key_exists('created', $options) && (empty($field) || $record->isPKEmpty())) {
             $record->{$options['created']} = date('Y-m-d H:i:s');
         }
-        if(array_key_exists('updated', $options) && !(TESTING_STAGE && isset($record->{$options['updated']}))) {
+        if(array_key_exists('updated', $options) && !(self::$TESTING_STAGE && isset($record->{$options['updated']}))) {
             $record->{$options['updated']} = date('Y-m-d H:i:s');
         }
     }
